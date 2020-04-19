@@ -1,34 +1,21 @@
-import 'package:covid_19/bloc/statewise_bloc.dart';
+import 'package:covid_19/data/models/my_state_data.dart';
 import 'package:covid_19/data/models/summary.dart';
-import 'package:covid_19/ui/widgets/loading.dart';
-import 'package:covid_19/ui/widgets/no_data.dart';
 import 'package:covid_19/ui/widgets/summarycard.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class IndiaDetails extends StatelessWidget {
   final List<Summary> summaryList;
+  final List<MyStateData> stateWiseData;
+  MyStateData totalStateData;
 
-  IndiaDetails({@required this.summaryList});
+  IndiaDetails({@required this.summaryList, @required this.stateWiseData}) {
+    totalStateData =
+        this.stateWiseData.firstWhere((item) => item.state == "Total");
+    print(totalStateData);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<StatewiseBloc, StatewiseState>(
-      
-      builder: (context, state) {
-        if (state is StatewiseInitial) {
-          return showLoadingScreen();
-        } else if (state is StatewiseLoaded) {
-          return showIndiaDetails();
-        } else if (state is StatewiseError) {
-          return showNoDataScreen();
-        }
-        return null;
-      },
-    );
-  }
-
-  Widget showIndiaDetails() {
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: 10,
@@ -40,14 +27,14 @@ class IndiaDetails extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: SummaryCard(
-                  name: summaryList[0].name,
-                  value: summaryList[0].value,
+                  name: "Confirmed",
+                  value: totalStateData.confirmed,
                 ),
               ),
               Expanded(
                 child: SummaryCard(
-                  name: summaryList[1].name,
-                  value: summaryList[1].value,
+                  name: "Active",
+                  value: totalStateData.active,
                 ),
               ),
             ],
@@ -56,14 +43,14 @@ class IndiaDetails extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: SummaryCard(
-                  name: summaryList[2].name,
-                  value: summaryList[2].value,
+                  name: "Recovered",
+                  value: totalStateData.recovered,
                 ),
               ),
               Expanded(
                 child: SummaryCard(
-                  name: summaryList[3].name,
-                  value: summaryList[3].value,
+                  name: "Deaths",
+                  value: totalStateData.deaths,
                 ),
               ),
             ],
@@ -71,13 +58,5 @@ class IndiaDetails extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Widget showLoadingScreen() {
-    return Loading();
-  }
-
-  Widget showNoDataScreen() {
-    return NoData();
   }
 }

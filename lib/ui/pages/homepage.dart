@@ -1,8 +1,11 @@
 import 'package:covid_19/bloc/statewise_bloc.dart';
+import 'package:covid_19/data/models/my_state_data.dart';
 import 'package:covid_19/data/models/summary.dart';
 import 'package:covid_19/data/patientrepository.dart';
 import 'package:covid_19/ui/widgets/animated_bottom_bar.dart';
 import 'package:covid_19/ui/widgets/india_details.dart';
+import 'package:covid_19/ui/widgets/loading.dart';
+import 'package:covid_19/ui/widgets/no_data.dart';
 import 'package:covid_19/ui/widgets/pageheader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,7 +55,24 @@ class HomePage extends StatelessWidget {
                       SizedBox(
                         height: 32,
                       ),
-                      IndiaDetails(summaryList: _summaryList),
+                      BlocBuilder<StatewiseBloc, StatewiseState>(
+                        builder: (context, state) {
+                          if (state is StatewiseInitial) {
+                            BlocProvider.of<StatewiseBloc>(context)
+                                .add(GetStatewiseData());
+                          }
+                          if (state is StatewiseLoading) {
+                            return showLoadingScreen();
+                          }
+                          if (state is StatewiseLoaded) {
+                            return showIndiaDetails(state.stateWiseData);
+                          }
+                          if (state is StatewiseError) {
+                            return showNoDataScreen();
+                          }
+                          return showLoadingScreen();
+                        },
+                      )
                     ],
                   ),
                 ),
@@ -74,5 +94,20 @@ class HomePage extends StatelessWidget {
     print("Button Pressed");
     final StatewiseBloc stateWiseBloc = BlocProvider.of<StatewiseBloc>(context);
     stateWiseBloc.add(GetStatewiseData());
+  }
+
+  Widget showIndiaDetails(List<MyStateData> stateWiseData) {
+    return IndiaDetails(
+      summaryList: _summaryList,
+      stateWiseData: stateWiseData,
+    );
+  }
+
+  Widget showLoadingScreen() {
+    return Loading();
+  }
+
+  Widget showNoDataScreen() {
+    return NoData();
   }
 }

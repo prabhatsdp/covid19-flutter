@@ -1,4 +1,4 @@
-class State {
+class MyStateData {
   String _state;
   String _stateCode;
   String _lastUpdatedTime;
@@ -11,7 +11,7 @@ class State {
   int _todayRecovered;
   int _todayDeaths;
 
-  State({
+  MyStateData({
     String state, 
     String stateCode, 
     String lastUpdatedTime, 
@@ -36,8 +36,8 @@ class State {
       this._todayDeaths = todayDeaths;
     }
 
-    factory State.fromJson(Map<String, dynamic> json) {
-      return State (
+    factory MyStateData.fromJson(Map<String, dynamic> json) {
+      return MyStateData (
         state: json["state"],
         stateCode: json["statecode"],
         lastUpdatedTime: json["lastupdatedtime"],
@@ -75,5 +75,23 @@ class State {
     int get todayConfirmed => this._todayConfirmed;
     int get todayRecovered => this._todayRecovered;
     int get todayDeaths => this._todayDeaths;
+
+    @override
+  String toString() {
+    String data = 
+    "state: "+ _state +
+   ", stateCode: "+ _stateCode + 
+", lastUpdatedTime: "+ _lastUpdatedTime +
+", stateNotes: "+ _stateNotes +
+", active: "+ _active.toString() + 
+", confirmed:" + _confirmed.toString() +
+", deaths: "+ _deaths.toString() + 
+", recovered:"+ _recovered.toString() +
+", todayConfirmed:"+ _todayConfirmed.toString() +
+", todayRecovered:"+ _todayRecovered.toString() +
+", todayDeaths: " + _todayDeaths.toString();
+    
+    return data;
+  }
 
 }

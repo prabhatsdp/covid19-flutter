@@ -9,8 +9,12 @@ class StatewiseInitial extends StatewiseState {
   const StatewiseInitial();
 }
 
+class StatewiseLoading extends StatewiseState {
+  const  StatewiseLoading();
+}
+
 class StatewiseLoaded extends StatewiseState {
-  final  stateWiseData;
+  final List<MyStateData> stateWiseData;
   const StatewiseLoaded({this.stateWiseData});
 }
 
