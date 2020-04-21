@@ -1,3 +1,4 @@
+import 'package:covid_19/animations/widget_enter_anim.dart';
 import 'package:covid_19/bloc/statewise_bloc.dart';
 import 'package:covid_19/data/models/my_state_data.dart';
 import 'package:covid_19/data/models/summary.dart';
@@ -41,59 +42,51 @@ class HomePage extends StatelessWidget {
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints viewportConstraints) {
           return Scaffold(
-            body: SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: viewportConstraints.maxHeight - BOTTOM_BAR_HEIGHT,
-                ),
-                child: IntrinsicHeight(
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        child: PageHeader(),
-                      ),
-                      SizedBox(
-                        height: 32,
-                      ),
-                      BlocBuilder<StatewiseBloc, StatewiseState>(
-                        builder: (context, state) {
-                          if (state is StatewiseInitial) {
-                            BlocProvider.of<StatewiseBloc>(context)
-                                .add(GetStatewiseData());
-                          }
-                          if (state is StatewiseLoading) {
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight:
+                        viewportConstraints.maxHeight - BOTTOM_BAR_HEIGHT,
+                  ),
+                  child: IntrinsicHeight(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: PageHeader(),
+                        ),
+                        SizedBox(
+                          height: 32,
+                        ),
+                        BlocBuilder<StatewiseBloc, StatewiseState>(
+                          builder: (context, state) {
+                            if (state is StatewiseInitial) {
+                              BlocProvider.of<StatewiseBloc>(context)
+                                  .add(GetStatewiseData());
+                            }
+                            if (state is StatewiseLoading) {
+                              return showLoadingScreen();
+                            }
+                            if (state is StatewiseLoaded) {
+                              return showIndiaDetails(state.stateWiseData);
+                            }
+                            if (state is StatewiseError) {
+                              return showNoDataScreen();
+                            }
                             return showLoadingScreen();
-                          }
-                          if (state is StatewiseLoaded) {
-                            return showIndiaDetails(state.stateWiseData);
-                          }
-                          if (state is StatewiseError) {
-                            return showNoDataScreen();
-                          }
-                          return showLoadingScreen();
-                        },
-                      )
-                    ],
+                          },
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
             bottomNavigationBar: AnimatedBottomBar(navBarItems: navBarItems),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () => loadData(context),
-              backgroundColor: Colors.blueAccent,
-              child: Icon(Icons.cloud_download, color: Colors.white),
-            ),
           );
         },
       ),
     );
-  }
-
-  void loadData(context) {
-    print("Button Pressed");
-    final StatewiseBloc stateWiseBloc = BlocProvider.of<StatewiseBloc>(context);
-    stateWiseBloc.add(GetStatewiseData());
   }
 
   Widget showIndiaDetails(List<MyStateData> stateWiseData) {

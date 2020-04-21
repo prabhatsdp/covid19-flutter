@@ -1,5 +1,7 @@
+import 'package:covid_19/animations/widget_enter_anim.dart';
 import 'package:covid_19/data/models/my_state_data.dart';
 import 'package:covid_19/data/models/summary.dart';
+import 'package:covid_19/ui/widgets/patient_data_table.dart';
 import 'package:covid_19/ui/widgets/summarycard.dart';
 import 'package:flutter/material.dart';
 
@@ -23,38 +25,47 @@ class IndiaDetails extends StatelessWidget {
       ),
       child: Column(
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: SummaryCard(
-                  name: "Confirmed",
-                  value: totalStateData.confirmed,
+          WidgetEnterAnimation(
+            delay: 1,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: SummaryCard(
+                    name: "Confirmed",
+                    value: totalStateData.confirmed,
+                  ),
                 ),
-              ),
-              Expanded(
-                child: SummaryCard(
-                  name: "Active",
-                  value: totalStateData.active,
+                Expanded(
+                  child: SummaryCard(
+                    name: "Active",
+                    value: totalStateData.active,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: SummaryCard(
-                  name: "Recovered",
-                  value: totalStateData.recovered,
+          WidgetEnterAnimation(
+            delay: 1.5,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: SummaryCard(
+                    name: "Recovered",
+                    value: totalStateData.recovered,
+                  ),
                 ),
-              ),
-              Expanded(
-                child: SummaryCard(
-                  name: "Deaths",
-                  value: totalStateData.deaths,
+                Expanded(
+                  child: SummaryCard(
+                    name: "Deaths",
+                    value: totalStateData.deaths,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
+          PatientDataTable(
+            stateWiseData: stateWiseData,
+          )
         ],
       ),
     );
