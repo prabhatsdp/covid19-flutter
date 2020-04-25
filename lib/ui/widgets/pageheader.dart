@@ -27,12 +27,15 @@ class _PageHeaderState extends State<PageHeader> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    "Current Outbreak",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black.withBlue(50)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 0,
+                      horizontal: 2,
+                    ),
+                    child: Text(
+                      "Current Outbreak",
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black.withBlue(50)),
+                    ),
                   ),
                   Icon(
                     Icons.notifications,
@@ -53,11 +56,7 @@ class _PageHeaderState extends State<PageHeader> {
                       size: 42,
                       color: Colors.black26.withBlue(100),
                     ),
-                    style: TextStyle(
-                        fontSize: 48,
-                        color: Colors.black.withBlue(100),
-                        fontWeight: FontWeight.w600,
-                        fontFamily: "Niramit"),
+                    style: TextStyle(fontSize: 48, color: Colors.black.withBlue(100), fontWeight: FontWeight.w600, fontFamily: "Niramit"),
                     itemHeight: 64,
                     items: <String>["India", "Global"].map((String value) {
                       return DropdownMenuItem<String>(
@@ -82,18 +81,6 @@ class _PageHeaderState extends State<PageHeader> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 8,
-                ),
-                child: Text(
-                  "Last Updated: 05/03/2020 @ 10:30AM",
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black.withBlue(100).withAlpha(150)),
-                ),
-              )
             ],
           ),
         ),

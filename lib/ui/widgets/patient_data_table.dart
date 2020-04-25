@@ -1,5 +1,6 @@
 import 'package:covid_19/animations/widget_enter_anim.dart';
 import 'package:covid_19/data/models/my_state_data.dart';
+import 'package:covid_19/misc/helper.dart';
 import 'package:flutter/material.dart';
 
 class PatientDataTable extends StatefulWidget {
@@ -38,10 +39,7 @@ class _PatientDataTableState extends State<PatientDataTable> {
             children: <Widget>[
               WidgetEnterAnimation(
                 delay: widget._rowAnimDelay + 0.75,
-                child: buildTableRow(
-                    0,
-                    widget.stateWiseData
-                        .firstWhere((item) => item.state == "Total")),
+                child: buildTableRow(0, widget.stateWiseData.firstWhere((item) => item.state == "Total")),
               ),
             ],
           ),
@@ -235,9 +233,7 @@ class _PatientDataTableState extends State<PatientDataTable> {
                   child: Text(
                     stateData.state,
                     style: TextStyle(
-                      fontWeight: stateData.state != "Total"
-                          ? FontWeight.w600
-                          : FontWeight.w900,
+                      fontWeight: stateData.state != "Total" ? FontWeight.w600 : FontWeight.w900,
                       fontSize: stateData.state != "Total" ? 14 : 16,
                       color: Colors.black.withBlue(100),
                     ),
@@ -259,14 +255,10 @@ class _PatientDataTableState extends State<PatientDataTable> {
                 ),
                 child: Center(
                   child: Text(
-                    stateData.confirmed == 0
-                        ? "-"
-                        : stateData.confirmed.toString(),
+                    stateData.confirmed == 0 ? "-" : Helper.formatNumber(stateData.confirmed),
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: stateData.state != "Total"
-                          ? Colors.black.withAlpha(170)
-                          : Colors.blueAccent,
+                      color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.blueAccent,
                     ),
                   ),
                 ),
@@ -286,12 +278,10 @@ class _PatientDataTableState extends State<PatientDataTable> {
                 ),
                 child: Center(
                   child: Text(
-                    stateData.active == 0 ? "-" : stateData.active.toString(),
+                    stateData.active == 0 ? "-" : Helper.formatNumber(stateData.active),
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: stateData.state != "Total"
-                          ? Colors.black.withAlpha(170)
-                          : Colors.amberAccent[700],
+                      color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.amberAccent[700],
                     ),
                   ),
                 ),
@@ -311,14 +301,10 @@ class _PatientDataTableState extends State<PatientDataTable> {
                 ),
                 child: Center(
                   child: Text(
-                    stateData.recovered == 0
-                        ? "-"
-                        : stateData.recovered.toString(),
+                    stateData.recovered == 0 ? "-" : Helper.formatNumber(stateData.recovered),
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: stateData.state != "Total"
-                          ? Colors.black.withAlpha(170)
-                          : Colors.greenAccent[700],
+                      color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.greenAccent[700],
                     ),
                   ),
                 ),
@@ -335,12 +321,10 @@ class _PatientDataTableState extends State<PatientDataTable> {
                 ),
                 child: Center(
                   child: Text(
-                    stateData.deaths == 0 ? "_" : stateData.deaths.toString(),
+                    stateData.deaths == 0 ? "_" : Helper.formatNumber(stateData.deaths),
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: stateData.state != "Total"
-                          ? Colors.black.withAlpha(170)
-                          : Colors.redAccent,
+                      color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.redAccent,
                     ),
                   ),
                 ),

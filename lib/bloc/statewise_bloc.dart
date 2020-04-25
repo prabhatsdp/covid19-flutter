@@ -10,7 +10,6 @@ part 'statewise_event.dart';
 part 'statewise_state.dart';
 
 class StatewiseBloc extends Bloc<StatewiseEvent, StatewiseState> {
-
   final PatientRepository patientRepository;
 
   StatewiseBloc({this.patientRepository});
@@ -24,11 +23,12 @@ class StatewiseBloc extends Bloc<StatewiseEvent, StatewiseState> {
   ) async* {
     // TODO: implement mapEventToState
     yield StatewiseLoading();
-    if(event is GetStatewiseData) {
-      try{
-        final stateWiseData = await patientRepository.fetchStateWiseData();
-        yield StatewiseLoaded(stateWiseData: stateWiseData);
-      } on Error {
+    if (event is GetPatientData) {
+      try {
+        final patientData = await patientRepository.fetchPatientData();
+        yield StatewiseLoaded(patientDataMap: patientData);
+      } catch (error) {
+        print(error);
         yield StatewiseError(error: "Data couldn't be loaded.");
       }
     }

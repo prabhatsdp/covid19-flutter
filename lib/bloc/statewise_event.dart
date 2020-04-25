@@ -5,6 +5,6 @@ abstract class StatewiseEvent {
   const StatewiseEvent();
 }
 
-class GetStatewiseData extends StatewiseEvent {
-  const GetStatewiseData();
+class GetPatientData extends StatewiseEvent {
+  const GetPatientData();
 }

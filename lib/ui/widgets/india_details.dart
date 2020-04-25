@@ -1,18 +1,23 @@
 import 'package:covid_19/animations/widget_enter_anim.dart';
+import 'package:covid_19/data/models/daily_data.dart';
 import 'package:covid_19/data/models/my_state_data.dart';
 import 'package:covid_19/data/models/summary.dart';
+import 'package:covid_19/ui/pages/delta_detail_page.dart';
 import 'package:covid_19/ui/widgets/patient_data_table.dart';
 import 'package:covid_19/ui/widgets/summarycard.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class IndiaDetails extends StatelessWidget {
-  final List<Summary> summaryList;
-  final List<MyStateData> stateWiseData;
+  final Map<String, List> patientDataMap;
+  List<MyStateData> stateWiseData;
+  List<DailyData> dailyData;
   MyStateData totalStateData;
 
-  IndiaDetails({@required this.summaryList, @required this.stateWiseData}) {
-    totalStateData =
-        this.stateWiseData.firstWhere((item) => item.state == "Total");
+  IndiaDetails({@required this.patientDataMap}) {
+    stateWiseData = this.patientDataMap["state_wise_data"];
+    dailyData = this.patientDataMap["daily_data"];
+    totalStateData = stateWiseData.firstWhere((item) => item.state == "Total");
     print(totalStateData);
   }
 
@@ -26,19 +31,42 @@ class IndiaDetails extends StatelessWidget {
       child: Column(
         children: <Widget>[
           WidgetEnterAnimation(
+            delay: 0.5,
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 12,
+                ),
+                child: Text(
+                  "Last Updated: " + formattedDate(totalStateData.lastUpdatedTime),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black.withBlue(100).withAlpha(150)),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          WidgetEnterAnimation(
             delay: 1,
             child: Row(
               children: <Widget>[
                 Expanded(
                   child: SummaryCard(
                     name: "Confirmed",
-                    value: totalStateData.confirmed,
+                    totalValue: totalStateData.confirmed,
+                    todayChange: totalStateData.todayConfirmed,
+                    dailyData: dailyData,
                   ),
                 ),
                 Expanded(
                   child: SummaryCard(
                     name: "Active",
-                    value: totalStateData.active,
+                    totalValue: totalStateData.active,
+                    todayChange: totalStateData.todayConfirmed - totalStateData.todayRecovered - totalStateData.todayDeaths,
+                    dailyData: dailyData,
                   ),
                 ),
               ],
@@ -51,13 +79,17 @@ class IndiaDetails extends StatelessWidget {
                 Expanded(
                   child: SummaryCard(
                     name: "Recovered",
-                    value: totalStateData.recovered,
+                    totalValue: totalStateData.recovered,
+                    todayChange: totalStateData.todayRecovered,
+                    dailyData: dailyData,
                   ),
                 ),
                 Expanded(
                   child: SummaryCard(
                     name: "Deaths",
-                    value: totalStateData.deaths,
+                    totalValue: totalStateData.deaths,
+                    todayChange: totalStateData.todayDeaths,
+                    dailyData: dailyData,
                   ),
                 ),
               ],
@@ -69,5 +101,11 @@ class IndiaDetails extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String formattedDate(String dateString) {
+    DateTime dateTime = DateFormat('dd/MM/yyyy HH:mm:ss').parse(dateString);
+    DateFormat dateFormatter = DateFormat('MMMM dd, yyyy @ hh:mm a');
+    return dateFormatter.format(dateTime) + " IST";
   }
 }

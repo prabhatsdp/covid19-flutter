@@ -14,8 +14,8 @@ class StatewiseLoading extends StatewiseState {
 }
 
 class StatewiseLoaded extends StatewiseState {
-  final List<MyStateData> stateWiseData;
-  const StatewiseLoaded({this.stateWiseData});
+  final Map<String, List> patientDataMap;
+  const StatewiseLoaded({this.patientDataMap});
 }
 
 class StatewiseError extends StatewiseState {
