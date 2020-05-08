@@ -2,6 +2,7 @@ import 'package:covid_19/animations/widget_enter_anim.dart';
 import 'package:covid_19/data/models/daily_data.dart';
 import 'package:covid_19/data/models/my_state_data.dart';
 import 'package:covid_19/data/models/summary.dart';
+import 'package:covid_19/misc/helper.dart';
 import 'package:covid_19/ui/pages/delta_detail_page.dart';
 import 'package:covid_19/ui/widgets/patient_data_table.dart';
 import 'package:covid_19/ui/widgets/summarycard.dart';
@@ -40,7 +41,7 @@ class IndiaDetails extends StatelessWidget {
                   horizontal: 12,
                 ),
                 child: Text(
-                  "Last Updated: " + formattedDate(totalStateData.lastUpdatedTime),
+                  "Last Updated: " + Helper.parseAndFormatDateFull(totalStateData.lastUpdatedTime),
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black.withBlue(100).withAlpha(150)),
                 ),
               ),
@@ -59,6 +60,9 @@ class IndiaDetails extends StatelessWidget {
                     totalValue: totalStateData.confirmed,
                     todayChange: totalStateData.todayConfirmed,
                     dailyData: dailyData,
+                    lastUpdatedTime: totalStateData.lastUpdatedTime,
+                    cardColor: Colors.blueAccent,
+                    cardImageAlignment: Alignment.centerLeft,
                   ),
                 ),
                 Expanded(
@@ -67,6 +71,9 @@ class IndiaDetails extends StatelessWidget {
                     totalValue: totalStateData.active,
                     todayChange: totalStateData.todayConfirmed - totalStateData.todayRecovered - totalStateData.todayDeaths,
                     dailyData: dailyData,
+                    lastUpdatedTime: totalStateData.lastUpdatedTime,
+                    cardColor: Colors.amberAccent[700],
+                    cardImageAlignment: Alignment.center,
                   ),
                 ),
               ],
@@ -82,6 +89,9 @@ class IndiaDetails extends StatelessWidget {
                     totalValue: totalStateData.recovered,
                     todayChange: totalStateData.todayRecovered,
                     dailyData: dailyData,
+                    lastUpdatedTime: totalStateData.lastUpdatedTime,
+                    cardColor: Colors.greenAccent[700],
+                    cardImageAlignment: Alignment.bottomRight,
                   ),
                 ),
                 Expanded(
@@ -90,6 +100,9 @@ class IndiaDetails extends StatelessWidget {
                     totalValue: totalStateData.deaths,
                     todayChange: totalStateData.todayDeaths,
                     dailyData: dailyData,
+                    lastUpdatedTime: totalStateData.lastUpdatedTime,
+                    cardColor: Colors.redAccent,
+                    cardImageAlignment: Alignment.topRight,
                   ),
                 ),
               ],
@@ -103,9 +116,4 @@ class IndiaDetails extends StatelessWidget {
     );
   }
 
-  String formattedDate(String dateString) {
-    DateTime dateTime = DateFormat('dd/MM/yyyy HH:mm:ss').parse(dateString);
-    DateFormat dateFormatter = DateFormat('MMMM dd, yyyy @ hh:mm a');
-    return dateFormatter.format(dateTime) + " IST";
-  }
 }

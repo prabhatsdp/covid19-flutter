@@ -5,6 +5,7 @@ class DailyData {
   int _dailyConfirmed;
   int _dailyDeaths;
   int _dailyRecovered;
+  int _dailyActive;
   int _totalConfirmed;
   int _totalDeaths;
   int _totalRecovered;
@@ -27,6 +28,7 @@ class DailyData {
     this._totalDeaths = totalDeaths;
     this._totalRecovered = totalRecovered;
     this._totalActive = totalConfirmed - totalRecovered - totalDeaths;
+    this._dailyActive = dailyConfirmed - dailyRecovered - dailyDeaths;
   }
 
   factory DailyData.fromJson(Map<String, dynamic> json) {
@@ -57,4 +59,5 @@ class DailyData {
   int get totalDeaths => this._totalDeaths;
   int get totalRecovered => this._totalRecovered;
   int get totalActive => this._totalActive;
+  int get dailyActive => this._dailyActive;
 }

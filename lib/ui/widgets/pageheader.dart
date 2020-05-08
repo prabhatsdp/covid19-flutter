@@ -15,8 +15,8 @@ class _PageHeaderState extends State<PageHeader> {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 32,
-          left: 20,
-          right: 20,
+          left: 16,
+          right: 16,
         ),
         child: WidgetEnterAnimation(
           delay: 1,

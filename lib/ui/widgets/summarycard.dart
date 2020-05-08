@@ -13,44 +13,20 @@ class SummaryCard extends StatelessWidget {
   final int todayChange;
   final String name;
   final List<DailyData> dailyData;
-  Color cardColor = Colors.white;
-  Alignment cardImageAlignment = Alignment.center;
+  final Color cardColor;
+  final Alignment cardImageAlignment;
+  final String lastUpdatedTime;
   final NumberFormat numberFormatter = new NumberFormat("##,##,##,##,###");
 
-  SummaryCard({@required this.totalValue, @required this.name, @required this.todayChange, @required this.dailyData}) {
-    switch (this.name) {
-      case "Confirmed":
-        {
-          cardColor = Colors.blueAccent;
-          cardImageAlignment = Alignment.centerLeft;
-        }
-        break;
-      case "Active":
-        {
-          cardColor = Colors.amberAccent[700];
-          cardImageAlignment = Alignment.center;
-        }
-        break;
-      case "Recovered":
-        {
-          cardColor = Colors.greenAccent[700];
-          cardImageAlignment = Alignment.bottomRight;
-        }
-        break;
-      case "Deaths":
-        {
-          cardColor = Colors.redAccent;
-          cardImageAlignment = Alignment.topRight;
-        }
-        break;
-      default:
-        {
-          cardColor = Colors.black;
-          cardImageAlignment = Alignment.centerRight;
-        }
-        break;
-    }
-  }
+  SummaryCard({
+    @required this.totalValue,
+    @required this.name,
+    @required this.todayChange,
+    @required this.dailyData,
+    @required this.lastUpdatedTime,
+    this.cardColor = Colors.white,
+    this.cardImageAlignment = Alignment.center,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -59,104 +35,107 @@ class SummaryCard extends StatelessWidget {
       transitionOnUserGestures: true,
       child: Material(
         type: MaterialType.transparency,
-        child: Container(
-          height: 200,
-          padding: EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 10,
-          ),
-          margin: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-            color: cardColor,
-            image: DecorationImage(
-              image: AssetImage("images/corona_card_big.png"),
-              fit: BoxFit.none,
-              alignment: cardImageAlignment,
+        child: IntrinsicHeight(
+          child: Container(
+            height: 200,
+            padding: EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 10,
             ),
-            borderRadius: BorderRadius.all(Radius.circular(16)),
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 24,
-                spreadRadius: 0,
-                color: cardColor.withAlpha(200),
-                offset: Offset(4, 8),
+            margin: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: cardColor,
+              image: DecorationImage(
+                image: AssetImage("images/corona_card_big.png"),
+                fit: BoxFit.none,
+                alignment: cardImageAlignment,
               ),
-            ],
-          ),
-          child: IntrinsicHeight(
-            child: GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DeltaDetailPage(
-                      name: name,
-                      totalValue: totalValue,
-                      todayChange: todayChange,
-                      dailyData: dailyData,
-                      cardColor: cardColor,
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 24,
+                  spreadRadius: 0,
+                  color: cardColor.withAlpha(200),
+                  offset: Offset(4, 8),
+                ),
+              ],
+            ),
+            child: IntrinsicHeight(
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DeltaDetailPage(
+                        name: name,
+                        totalValue: totalValue,
+                        todayChange: todayChange,
+                        dailyData: dailyData,
+                        lastUpdatedTime: lastUpdatedTime,
+                        cardColor: cardColor,
+                      ),
                     ),
-                  ),
-                );
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        name,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white.withAlpha(200),
+                  );
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          name,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white.withAlpha(200),
+                          ),
                         ),
-                      ),
-                      Text(
-                        todayChange.isNegative ? Helper.formatNumber(todayChange) : "+" + Helper.formatNumber(todayChange),
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
+                        Text(
+                          todayChange.isNegative ? Helper.formatNumber(todayChange) : "+" + Helper.formatNumber(todayChange),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        child: Column(
-                          children: <Widget>[
-                            AutoSizeText(
-                              Helper.formatNumber(totalValue),
-                              style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w800,
-                                color: Colors.white,
+                      ],
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          child: Column(
+                            children: <Widget>[
+                              AutoSizeText(
+                                Helper.formatNumber(totalValue),
+                                style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.white,
+                                ),
+                                maxLines: 1,
                               ),
-                              maxLines: 1,
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: Container(
-                      child: showChart(),
+                        SizedBox(
+                          height: 8,
+                        ),
+                      ],
                     ),
-                  )
-                ],
+                    Expanded(
+                      child: Container(
+                        child: showChart(),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
