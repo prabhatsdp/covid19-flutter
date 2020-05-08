@@ -26,7 +26,7 @@ class IndiaDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(
-        horizontal: 10,
+        horizontal: 6,
         vertical: 0,
       ),
       child: Column(

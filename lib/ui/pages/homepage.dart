@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           Container(
-                            child: PageHeader(),
+                            child: PageHeader(title: "India"),
                           ),
                           BlocBuilder<StatewiseBloc, StatewiseState>(
                             builder: (context, state) {

@@ -1,6 +1,7 @@
 import 'package:covid_19/animations/widget_enter_anim.dart';
 import 'package:covid_19/data/models/my_state_data.dart';
 import 'package:covid_19/misc/helper.dart';
+import 'package:covid_19/ui/pages/state_page.dart';
 import 'package:flutter/material.dart';
 
 class PatientDataTable extends StatefulWidget {
@@ -18,7 +19,7 @@ class _PatientDataTableState extends State<PatientDataTable> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(
-        horizontal: 10,
+        horizontal: 6,
         vertical: 32,
       ),
       child: Column(
@@ -26,7 +27,9 @@ class _PatientDataTableState extends State<PatientDataTable> {
           WidgetEnterAnimation(
             delay: widget._rowAnimDelay,
             child: Column(
-              children: <Widget>[buildTableHeaderRow()],
+              children: <Widget>[
+                buildTableHeaderRow()
+              ],
             ),
           ),
           WidgetEnterAnimation(
@@ -54,10 +57,7 @@ class _PatientDataTableState extends State<PatientDataTable> {
   List<Widget> buildTable() {
     return List<Widget>.generate(widget.stateWiseData.length, (index) {
       if (widget.stateWiseData[index].state == "Total") {
-        return SizedBox(
-          width: 0,
-          height: 0,
-        );
+        return Container();
       }
       return buildTableRow(index, widget.stateWiseData[index]);
     });
@@ -82,9 +82,9 @@ class _PatientDataTableState extends State<PatientDataTable> {
                 message: "State Name",
                 child: Container(
                   margin: EdgeInsets.only(
-                    right: 3,
+                    right: 1,
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
                     color: Colors.black.withAlpha(5),
@@ -108,9 +108,9 @@ class _PatientDataTableState extends State<PatientDataTable> {
               flex: 10,
               child: Container(
                 margin: EdgeInsets.only(
-                  right: 3,
+                  right: 1,
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   color: Colors.blueAccent.withAlpha(10),
@@ -132,9 +132,9 @@ class _PatientDataTableState extends State<PatientDataTable> {
               flex: 10,
               child: Container(
                 margin: EdgeInsets.only(
-                  right: 3,
+                  right: 1,
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   color: Colors.amberAccent[700].withAlpha(10),
@@ -156,9 +156,9 @@ class _PatientDataTableState extends State<PatientDataTable> {
               flex: 10,
               child: Container(
                 margin: EdgeInsets.only(
-                  right: 3,
+                  right: 1,
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   color: Colors.greenAccent[700].withAlpha(10),
@@ -179,7 +179,7 @@ class _PatientDataTableState extends State<PatientDataTable> {
             Expanded(
               flex: 8,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   color: Colors.redAccent.withAlpha(10),
@@ -211,126 +211,142 @@ class _PatientDataTableState extends State<PatientDataTable> {
   Widget buildTableRow(int index, MyStateData stateData) {
     return IntrinsicHeight(
       child: Padding(
-        padding: const EdgeInsets.all(1.5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            // State Name Cell
-            Expanded(
-              flex: 16,
-              child: Container(
-                margin: EdgeInsets.only(
-                  right: 3,
+        padding: const EdgeInsets.all(0.5),
+        child: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => StatePage(
+                  title: stateData.state,
+                  stateData: stateData,
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Colors.black.withAlpha(5),
-                ),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    stateData.state,
-                    style: TextStyle(
-                      fontWeight: stateData.state != "Total" ? FontWeight.w600 : FontWeight.w900,
-                      fontSize: stateData.state != "Total" ? 14 : 16,
-                      color: Colors.black.withBlue(100),
+              ),
+            );
+          },
+          borderRadius: BorderRadius.circular(4),
+          splashColor: Colors.blueAccent.withOpacity(0.3),
+          highlightColor: Colors.blueAccent.withOpacity(0.15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              // State Name Cell
+              Expanded(
+                flex: 16,
+                child: Container(
+                  margin: EdgeInsets.only(
+                    right: 1,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.black.withAlpha(5),
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      stateData.state,
+                      style: TextStyle(
+                        fontWeight: stateData.state != "Total" ? FontWeight.w600 : FontWeight.w900,
+                        fontSize: stateData.state != "Total" ? 14 : 16,
+                        color: Colors.black.withBlue(100),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            // Confirmed Count Cell
-            Expanded(
-              flex: 10,
-              child: Container(
-                margin: EdgeInsets.only(
-                  right: 3,
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Colors.blueAccent.withAlpha(10),
-                ),
-                child: Center(
-                  child: Text(
-                    stateData.confirmed == 0 ? "-" : Helper.formatNumber(stateData.confirmed),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.blueAccent,
+              // Confirmed Count Cell
+              Expanded(
+                flex: 10,
+                child: Container(
+                  margin: EdgeInsets.only(
+                    right: 1,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.blueAccent.withAlpha(10),
+                  ),
+                  child: Center(
+                    child: Text(
+                      stateData.confirmed == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.confirmed) : Helper.formatNumberAsThousands(stateData.confirmed)),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.blueAccent,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            // Active Count Cell
-            Expanded(
-              flex: 10,
-              child: Container(
-                margin: EdgeInsets.only(
-                  right: 3,
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Colors.amberAccent[700].withAlpha(10),
-                ),
-                child: Center(
-                  child: Text(
-                    stateData.active == 0 ? "-" : Helper.formatNumber(stateData.active),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.amberAccent[700],
+              // Active Count Cell
+              Expanded(
+                flex: 10,
+                child: Container(
+                  margin: EdgeInsets.only(
+                    right: 1,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.amberAccent[700].withAlpha(10),
+                  ),
+                  child: Center(
+                    child: Text(
+                      stateData.active == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.active) : Helper.formatNumberAsThousands(stateData.active)),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.amberAccent[700],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            // Recovered Count Cell
-            Expanded(
-              flex: 10,
-              child: Container(
-                margin: EdgeInsets.only(
-                  right: 3,
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Colors.greenAccent[700].withAlpha(10),
-                ),
-                child: Center(
-                  child: Text(
-                    stateData.recovered == 0 ? "-" : Helper.formatNumber(stateData.recovered),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.greenAccent[700],
+              // Recovered Count Cell
+              Expanded(
+                flex: 10,
+                child: Container(
+                  margin: EdgeInsets.only(
+                    right: 1,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.greenAccent[700].withAlpha(10),
+                  ),
+                  child: Center(
+                    child: Text(
+                      stateData.recovered == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.recovered) : Helper.formatNumberAsThousands(stateData.recovered)),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.greenAccent[700],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            // Deaths Count Cell
-            Expanded(
-              flex: 8,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Colors.redAccent.withAlpha(10),
-                ),
-                child: Center(
-                  child: Text(
-                    stateData.deaths == 0 ? "_" : Helper.formatNumber(stateData.deaths),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.redAccent,
+              // Deaths Count Cell
+              Expanded(
+                flex: 8,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.redAccent.withAlpha(10),
+                  ),
+                  child: Center(
+                    child: Text(
+                      stateData.deaths == 0 ? "_" : (stateData.state != "Total" ? Helper.formatNumber(stateData.deaths) : Helper.formatNumberAsThousands(stateData.deaths)),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.redAccent,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

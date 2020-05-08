@@ -38,10 +38,10 @@ class SummaryCard extends StatelessWidget {
         child: IntrinsicHeight(
           child: Container(
             height: 200,
-            padding: EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 10,
-            ),
+            // padding: EdgeInsets.symmetric(
+            //   horizontal: 10,
+            //   vertical: 10,
+            // ),
             margin: EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               color: cardColor,
@@ -61,80 +61,89 @@ class SummaryCard extends StatelessWidget {
               ],
             ),
             child: IntrinsicHeight(
-              child: GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DeltaDetailPage(
-                        name: name,
-                        totalValue: totalValue,
-                        todayChange: todayChange,
-                        dailyData: dailyData,
-                        lastUpdatedTime: lastUpdatedTime,
-                        cardColor: cardColor,
+              child: Material(
+                type: MaterialType.transparency,
+                child: InkWell(
+                  // behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DeltaDetailPage(
+                          name: name,
+                          totalValue: totalValue,
+                          todayChange: todayChange,
+                          dailyData: dailyData,
+                          lastUpdatedTime: lastUpdatedTime,
+                          cardColor: cardColor,
+                        ),
                       ),
-                    ),
-                  );
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Row(
+                    );
+                  },
+                  borderRadius: BorderRadius.circular(16),
+                  splashColor: Colors.white.withOpacity(0.4),
+                  highlightColor: Colors.white.withOpacity(0.2),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(
-                          name,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white.withAlpha(200),
-                          ),
-                        ),
-                        Text(
-                          todayChange.isNegative ? Helper.formatNumber(todayChange) : "+" + Helper.formatNumber(todayChange),
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          child: Column(
-                            children: <Widget>[
-                              AutoSizeText(
-                                Helper.formatNumber(totalValue),
-                                style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w800,
-                                  color: Colors.white,
-                                ),
-                                maxLines: 1,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              name,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white.withAlpha(200),
                               ),
-                            ],
-                          ),
+                            ),
+                            Text(
+                              todayChange.isNegative ? Helper.formatNumber(todayChange) : "+" + Helper.formatNumber(todayChange),
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
-                          height: 8,
+                          height: 16,
                         ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              child: Column(
+                                children: <Widget>[
+                                  AutoSizeText(
+                                    Helper.formatNumber(totalValue),
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.white,
+                                    ),
+                                    maxLines: 1,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                          ],
+                        ),
+                        Expanded(
+                          child: Container(
+                            child: showChart(),
+                          ),
+                        )
                       ],
                     ),
-                    Expanded(
-                      child: Container(
-                        child: showChart(),
-                      ),
-                    )
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -164,7 +173,9 @@ class SummaryCard extends StatelessWidget {
 
   LineChartData buildLineChart(List<SingleDayData> singleDayData) {
     singleDayData = singleDayData.reversed.toList();
-    List<Color> gradientColors = [Colors.white.withAlpha(200)];
+    List<Color> gradientColors = [
+      Colors.white.withAlpha(200)
+    ];
     return LineChartData(
       lineTouchData: LineTouchData(
         enabled: false,
@@ -196,7 +207,10 @@ class SummaryCard extends StatelessWidget {
               Colors.white.withAlpha(100),
               Colors.white.withAlpha(0),
             ],
-            gradientColorStops: [0.5, 0.9],
+            gradientColorStops: [
+              0.5,
+              0.9
+            ],
             gradientFrom: Offset(0, 0),
             gradientTo: Offset(0.3, 1),
             spotsLine: BarAreaSpotsLine(
@@ -204,7 +218,10 @@ class SummaryCard extends StatelessWidget {
               flLineStyle: FlLine(
                 color: Colors.white.withAlpha(50),
                 strokeWidth: 2,
-                dashArray: [8, 4],
+                dashArray: [
+                  8,
+                  4
+                ],
               ),
             ),
           ),

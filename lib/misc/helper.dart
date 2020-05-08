@@ -29,4 +29,14 @@ class Helper {
       return dateFormatter.format(dateTime) + " IST";
     }
   }
+
+  static String formatNumberAsThousands(int number) {
+     String formatedNumberString = "";
+    if(number >= 1000) {
+     formatedNumberString = ((number / 1000).toStringAsFixed(1)) + "K";
+    } else {
+      formatedNumberString = number.toString();
+    }
+    return formatedNumberString;
+  }
 }
