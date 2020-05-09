@@ -115,5 +115,4 @@ class IndiaDetails extends StatelessWidget {
       ),
     );
   }
-
 }

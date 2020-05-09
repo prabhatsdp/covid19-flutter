@@ -30,6 +30,10 @@ class Helper {
     }
   }
 
+  static DateTime parseDateTimeDDMMMYY(String dateString) {
+    return DateFormat("DD-MMM-yy").parse(dateString);
+  }
+
   static String formatNumberAsThousands(int number) {
      String formatedNumberString = "";
     if(number >= 1000) {

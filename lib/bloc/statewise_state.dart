@@ -10,7 +10,7 @@ class StatewiseInitial extends StatewiseState {
 }
 
 class StatewiseLoading extends StatewiseState {
-  const  StatewiseLoading();
+  const StatewiseLoading();
 }
 
 class StatewiseLoaded extends StatewiseState {

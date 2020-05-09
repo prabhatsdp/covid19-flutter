@@ -30,7 +30,7 @@ class _PageHeaderState extends State<PageHeader> {
           right: 16,
         ),
         child: WidgetEnterAnimation(
-          delay: 1,
+          delay: 0.5,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
