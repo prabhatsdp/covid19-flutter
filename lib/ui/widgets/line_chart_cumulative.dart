@@ -31,7 +31,6 @@ class _LineChartCumulativeState extends State<LineChartCumulative> {
   int selectedCount;
   double touchedSpotXValue;
   bool isSpotSelected;
-  List<CustomRadioModel> radioModels = List();
   List<SingleDayData> singleDayData = List();
   // DateValue dateValue;
 

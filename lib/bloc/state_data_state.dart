@@ -14,7 +14,7 @@ class StateDataLoading extends StateDataState {
 }
 
 class StateDataLoaded extends StateDataState {
-  final Map<String, List> patientDataMap;
+  final Map<String, List<MyStateSingleValue>> patientDataMap;
   const StateDataLoaded({this.patientDataMap});
 }
 

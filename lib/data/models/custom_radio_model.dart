@@ -10,11 +10,13 @@ class CustomRadioModel {
   Radio radio;
   bool isSelected;
 
-  CustomRadioModel({@required this.value, @required this.selectedValue, @required this.title, @required this.bgColor, this.textColor = Colors.black, this.isSelected}){
+CustomRadioModel({ @required this.value, @required this.selectedValue, @required this.title, @required this.bgColor, this.textColor = Colors.black, this.isSelected}){
     isSelected = value == selectedValue;
   }
 
   set selected(bool isSelected) => this.isSelected = isSelected;
+
+  
 
 
 }

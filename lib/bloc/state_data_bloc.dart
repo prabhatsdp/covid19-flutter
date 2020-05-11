@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:covid_19/data/models/my_state_single_value.dart';
 import 'package:covid_19/data/patientrepository.dart';
 import 'package:meta/meta.dart';
 

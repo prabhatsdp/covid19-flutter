@@ -1,14 +1,15 @@
+import 'dart:math';
+
 import 'package:covid_19/data/models/custom_radio_model.dart';
 import 'package:covid_19/data/models/my_state_single_value.dart';
-import 'package:covid_19/data/models/single_day_data.dart';
 import 'package:covid_19/misc/helper.dart';
-import 'package:covid_19/ui/widgets/custom_radio_button.dart';
-import 'package:covid_19/ui/widgets/date_value.dart';
 import 'package:covid_19/ui/widgets/touched_data_capsule.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class StateCombinedChart extends StatefulWidget {
+import 'custom_radio_button.dart';
+
+class DailyStateCombinedChart extends StatefulWidget {
   final Map<String, List<MyStateSingleValue>> statePatientDataMap;
   final accentColor = Colors.blueAccent;
   final cnfChartColor = Colors.blueAccent;
@@ -16,20 +17,19 @@ class StateCombinedChart extends StatefulWidget {
   final rcvrdChartColor = Colors.greenAccent[700];
   final deathsChartColor = Colors.redAccent;
 
-  List<MyStateSingleValue> confirmedCumulativeList = List();
-  List<MyStateSingleValue> activeCumulativeList = List();
-  List<MyStateSingleValue> recoveredCumulativeList = List();
-  List<MyStateSingleValue> deathsCumulativeList = List();
+  // List<MyStateSingleValue> confirmedCumulativeList = List();
+  // List<MyStateSingleValue> activeCumulativeList = List();
+  // List<MyStateSingleValue> recoveredCumulativeList = List();
+  // List<MyStateSingleValue> deathsCumulativeList = List();
   List<MyStateSingleValue> confirmedDailyList = List();
   List<MyStateSingleValue> activeDailyList = List();
   List<MyStateSingleValue> recoveredDailyList = List();
   List<MyStateSingleValue> deathsDailyList = List();
-
-  StateCombinedChart({Key key, @required this.statePatientDataMap}) : super(key: key) {
-    confirmedCumulativeList = this.statePatientDataMap["cnf_state_cumulative_data"];
-    activeCumulativeList = this.statePatientDataMap["active_state_cumulative_data"];
-    recoveredCumulativeList = this.statePatientDataMap["rcvrd_state_cumulative_data"];
-    deathsCumulativeList = this.statePatientDataMap["deaths_state_cumulative_data"];
+  DailyStateCombinedChart({Key key, this.statePatientDataMap}) : super(key: key) {
+    // confirmedCumulativeList = this.statePatientDataMap["cnf_state_cumulative_data"];
+    // activeCumulativeList = this.statePatientDataMap["active_state_cumulative_data"];
+    // recoveredCumulativeList = this.statePatientDataMap["rcvrd_state_cumulative_data"];
+    // deathsCumulativeList = this.statePatientDataMap["deaths_state_cumulative_data"];
     confirmedDailyList = this.statePatientDataMap["cnf_state_daily_data"];
     activeDailyList = this.statePatientDataMap["active_state_daily_data"];
     recoveredDailyList = this.statePatientDataMap["rcvrd_state_daily_data"];
@@ -37,10 +37,10 @@ class StateCombinedChart extends StatefulWidget {
   }
 
   @override
-  _StateCombinedChartState createState() => _StateCombinedChartState();
+  _DailyStateCombinedChartState createState() => _DailyStateCombinedChartState();
 }
 
-class _StateCombinedChartState extends State<StateCombinedChart> {
+class _DailyStateCombinedChartState extends State<DailyStateCombinedChart> {
   static const int CUMULATIVE_CHART = 0;
   static const int DAILY_CHART = 1;
   static const int ONE_WEEK = 7;
@@ -59,6 +59,7 @@ class _StateCombinedChartState extends State<StateCombinedChart> {
   Color accentColor;
   double touchedSpotXValue;
   bool isSpotSelected;
+  int maxDailyData;
   int selectedChartType;
   List<MyStateSingleValue> mCnfStateDataList = List();
   List<MyStateSingleValue> mActiveStateDataList = List();
@@ -70,11 +71,11 @@ class _StateCombinedChartState extends State<StateCombinedChart> {
     chartLength = 14;
     selectedValue = TWO_WEEKS;
     accentColor = Colors.blueAccent;
-    mCnfStateDataList = buildLineChartData(widget.confirmedCumulativeList, chartLength);
-    mActiveStateDataList = buildLineChartData(widget.activeCumulativeList, chartLength);
-    mRcvrdStateDataList = buildLineChartData(widget.recoveredCumulativeList, chartLength);
-    mDeathsStateDataList = buildLineChartData(widget.deathsCumulativeList, chartLength);
-
+    mCnfStateDataList = buildLineChartData(widget.confirmedDailyList, chartLength);
+    mActiveStateDataList = buildLineChartData(widget.activeDailyList, chartLength);
+    mRcvrdStateDataList = buildLineChartData(widget.recoveredDailyList, chartLength);
+    mDeathsStateDataList = buildLineChartData(widget.deathsDailyList, chartLength);
+    maxDailyData = getMaxSingleDayDailyDataValue(cnfData: mCnfStateDataList, activeData: mActiveStateDataList, rcvrdData: mRcvrdStateDataList, deathsData: mDeathsStateDataList);
     selectedCnfValue = mCnfStateDataList.last.value;
     selectedActiveValue = mActiveStateDataList.last.value;
     selectedRcvrdValue = mRcvrdStateDataList.last.value;
@@ -83,7 +84,7 @@ class _StateCombinedChartState extends State<StateCombinedChart> {
     touchedSpotXValue = (chartLength - 1).toDouble();
     selectedChartType = CUMULATIVE_CHART;
     isSpotSelected = true;
-    updateValueDividerAndMultiplier(widget.confirmedCumulativeList.first.value);
+    updateValueDividerAndMultiplier(maxDailyData);
   }
 
   @override
@@ -116,7 +117,7 @@ class _StateCombinedChartState extends State<StateCombinedChart> {
               ),
               Spacer(),
               Text(
-                "Cumulative",
+                "Daily",
                 style: TextStyle(
                   color: accentColor,
                   fontWeight: FontWeight.w800,
@@ -208,13 +209,13 @@ class _StateCombinedChartState extends State<StateCombinedChart> {
                 ),
                 onChanged: () {
                   setState(() {
-                    this.chartLength = widget.confirmedCumulativeList.length;
+                    this.chartLength = widget.confirmedDailyList.length;
                     this.selectedValue = BEGINNING;
                     isSpotSelected = false;
-                    mCnfStateDataList = buildLineChartData(widget.confirmedCumulativeList, chartLength);
-                    mActiveStateDataList = buildLineChartData(widget.activeCumulativeList, chartLength);
-                    mRcvrdStateDataList = buildLineChartData(widget.recoveredCumulativeList, chartLength);
-                    mDeathsStateDataList = buildLineChartData(widget.deathsCumulativeList, chartLength);
+                    mCnfStateDataList = buildLineChartData(widget.confirmedDailyList, chartLength);
+                    mActiveStateDataList = buildLineChartData(widget.activeDailyList, chartLength);
+                    mRcvrdStateDataList = buildLineChartData(widget.recoveredDailyList, chartLength);
+                    mDeathsStateDataList = buildLineChartData(widget.deathsDailyList, chartLength);
                   });
                 },
               ),
@@ -234,10 +235,10 @@ class _StateCombinedChartState extends State<StateCombinedChart> {
                       this.chartLength = 30;
                       this.selectedValue = ONE_MONTH;
                       isSpotSelected = false;
-                      mCnfStateDataList = buildLineChartData(widget.confirmedCumulativeList, chartLength);
-                      mActiveStateDataList = buildLineChartData(widget.activeCumulativeList, chartLength);
-                      mRcvrdStateDataList = buildLineChartData(widget.recoveredCumulativeList, chartLength);
-                      mDeathsStateDataList = buildLineChartData(widget.deathsCumulativeList, chartLength);
+                      mCnfStateDataList = buildLineChartData(widget.confirmedDailyList, chartLength);
+                      mActiveStateDataList = buildLineChartData(widget.activeDailyList, chartLength);
+                      mRcvrdStateDataList = buildLineChartData(widget.recoveredDailyList, chartLength);
+                      mDeathsStateDataList = buildLineChartData(widget.deathsDailyList, chartLength);
                     });
                   },
                 ),
@@ -258,10 +259,10 @@ class _StateCombinedChartState extends State<StateCombinedChart> {
                       this.chartLength = 14;
                       this.selectedValue = TWO_WEEKS;
                       isSpotSelected = false;
-                      mCnfStateDataList = buildLineChartData(widget.confirmedCumulativeList, chartLength);
-                      mActiveStateDataList = buildLineChartData(widget.activeCumulativeList, chartLength);
-                      mRcvrdStateDataList = buildLineChartData(widget.recoveredCumulativeList, chartLength);
-                      mDeathsStateDataList = buildLineChartData(widget.deathsCumulativeList, chartLength);
+                      mCnfStateDataList = buildLineChartData(widget.confirmedDailyList, chartLength);
+                      mActiveStateDataList = buildLineChartData(widget.activeDailyList, chartLength);
+                      mRcvrdStateDataList = buildLineChartData(widget.recoveredDailyList, chartLength);
+                      mDeathsStateDataList = buildLineChartData(widget.deathsDailyList, chartLength);
                     });
                   },
                 ),
@@ -282,10 +283,10 @@ class _StateCombinedChartState extends State<StateCombinedChart> {
                       this.chartLength = 7;
                       this.selectedValue = ONE_WEEK;
                       isSpotSelected = false;
-                      mCnfStateDataList = buildLineChartData(widget.confirmedCumulativeList, chartLength);
-                      mActiveStateDataList = buildLineChartData(widget.activeCumulativeList, chartLength);
-                      mRcvrdStateDataList = buildLineChartData(widget.recoveredCumulativeList, chartLength);
-                      mDeathsStateDataList = buildLineChartData(widget.deathsCumulativeList, chartLength);
+                      mCnfStateDataList = buildLineChartData(widget.confirmedDailyList, chartLength);
+                      mActiveStateDataList = buildLineChartData(widget.activeDailyList, chartLength);
+                      mRcvrdStateDataList = buildLineChartData(widget.recoveredDailyList, chartLength);
+                      mDeathsStateDataList = buildLineChartData(widget.deathsDailyList, chartLength);
                     });
                   },
                 ),
@@ -403,7 +404,7 @@ class _StateCombinedChartState extends State<StateCombinedChart> {
       ),
       minX: 0,
       minY: 0,
-      maxY: cnfStateDataList[chartLength - 1].value.toDouble() / valueDivider,
+      maxY: getMaxSingleDayDailyDataValue(cnfData: mCnfStateDataList, activeData: mActiveStateDataList, rcvrdData: mRcvrdStateDataList, deathsData: mDeathsStateDataList) / valueDivider,
       maxX: (chartLength - 1).toDouble(),
       clipToBorder: false,
       lineBarsData: [
@@ -430,25 +431,25 @@ class _StateCombinedChartState extends State<StateCombinedChart> {
   }) {
     return LineChartBarData(
       spots: buildFlSpots(dataList),
-      isCurved: true,
+      isCurved: false,
       colors: [
         chartColor.withOpacity(0.8)
       ],
       dotData: FlDotData(
         show: true,
-        dotSize: 6,
-        strokeWidth: 2,
-        getStrokeColor: (_, __, ___) {
-          return chartColor;
+        dotSize: getDotSize(selectedValue),
+        strokeWidth: 0,
+        getStrokeColor: (flSpot, __, ___) {
+          return (touchedSpotXValue == flSpot.x && isSpotSelected) ? chartColor : chartColor.withOpacity(0.75);
         },
-        getDotColor: (_, __, ___) {
-          return chartColor;
+        getDotColor: (flSpot, __, ___) {
+          return (touchedSpotXValue == flSpot.x && isSpotSelected) ? chartColor : chartColor.withOpacity(0.75);
         },
-        checkToShowDot: (FlSpot flSpot, LineChartBarData lineChartBarData) {
-          return touchedSpotXValue == flSpot.x && isSpotSelected;
-        },
+        // checkToShowDot: (FlSpot flSpot, LineChartBarData lineChartBarData) {
+        //   return touchedSpotXValue == flSpot.x && isSpotSelected;
+        // },
       ),
-      barWidth: 6,
+      barWidth: getBarWidth(selectedValue),
       isStrokeCapRound: true,
       shadow: Shadow(blurRadius: 0, color: Colors.transparent, offset: Offset(0, 0)),
       belowBarData: BarAreaData(
@@ -485,7 +486,10 @@ class _StateCombinedChartState extends State<StateCombinedChart> {
     List<FlSpot> flSpots = List();
     for (int i = 0; i < singleDayData.length; i++) {
       MyStateSingleValue item = singleDayData[i];
-      flSpots.add(FlSpot(i.toDouble(), item.value.toDouble() / valueDivider));
+      flSpots.add(FlSpot(
+        i.toDouble(),
+        item.value.isNegative ? 0 : item.value.toDouble() / valueDivider,
+      ));
     }
     return flSpots;
   }
@@ -522,9 +526,9 @@ class _StateCombinedChartState extends State<StateCombinedChart> {
         return Helper.formateDateDDMMMYY(data[index.toInt()].date);
       }
       return "";
-    } else if (numDays == widget.confirmedCumulativeList.length) {
-      num numberToSubtract = widget.confirmedCumulativeList.length / 25;
-      num numberToDivide = widget.confirmedCumulativeList.length - numberToSubtract.round();
+    } else if (numDays == widget.confirmedDailyList.length) {
+      num numberToSubtract = widget.confirmedDailyList.length / 25;
+      num numberToDivide = widget.confirmedDailyList.length - numberToSubtract.round();
       num numberSteps = double.tryParse((numberToDivide / 4).toString().split(".")[0]);
       if ((numberToDivide) == index.toInt() || index.toInt() == 0) {
         return Helper.formateDateDDMMMYY(data[index.toInt()].date);
@@ -537,12 +541,12 @@ class _StateCombinedChartState extends State<StateCombinedChart> {
 
   String getLeftTitle({double index, List<MyStateSingleValue> data}) {
     if (index > 0 && index % .5 == 0) {
-      int maxValue = data.last.value;
+      // int maxValue = data.last.value;
       String title;
       double value = index * valueMultiplier;
-      if (maxValue < 600) {
+      if (maxDailyData < 600) {
         title = (value).toDouble().toStringAsFixed(0);
-      } else if (maxValue < 3000) {
+      } else if (maxDailyData < 3000) {
         title = (value).toDouble().toStringAsFixed(1) + "K";
       } else {
         title = (value).toDouble().toStringAsFixed(0) + "K";
@@ -550,6 +554,24 @@ class _StateCombinedChartState extends State<StateCombinedChart> {
       return title;
     }
     return "";
+  }
+
+  int getMaxSingleDayDailyDataValue({List<MyStateSingleValue> cnfData, List<MyStateSingleValue> activeData, List<MyStateSingleValue> rcvrdData, List<MyStateSingleValue> deathsData}) {
+    // int maxValue = 0;
+    // List<MyStateSingleValue> tempCnfList = List.from(cnfData);
+    // List<MyStateSingleValue> tempActiveList = List.from(activeData);
+    // List<MyStateSingleValue> tempRcvrdList = List.from(rcvrdData);
+    // List<MyStateSingleValue> tempDeathsList = List.from(deathsData);
+
+    List<MyStateSingleValue> tempCombinedList = cnfData + activeData + rcvrdData + deathsData; // [...tempCnfList, ...tempActiveList, ...tempRcvrdList, ...tempDeathsList];
+
+    tempCombinedList.sort((item1, item2) => item1.value - item2.value);
+    // tempActiveList.sort((item1, item2) => item1.value - item2.value);
+    // tempRcvrdList.sort((item1, item2) => item1.value - item2.value);
+    // tempDeathsList.sort((item1, item2) => item1.value - item2.value);
+    print("Maximum Value: " + tempCombinedList.last.value.toString());
+
+    return tempCombinedList.last.value;
   }
 
   void updateValueDividerAndMultiplier(int totalValue) {
@@ -595,6 +617,36 @@ class _StateCombinedChartState extends State<StateCombinedChart> {
     } else if (totalValue < 6000000) {
       valueDivider = 1000000;
       valueMultiplier = 1000;
+    }
+  }
+
+  double getDotSize(int _selectedValue) {
+    switch (_selectedValue) {
+      case 0:
+        return 2;
+      case 7:
+        return 6;
+      case 14:
+        return 5;
+      case 30:
+        return 3;
+      default:
+        return 3;
+    }
+  }
+
+  double getBarWidth(int _selectedValue) {
+    switch (_selectedValue) {
+      case 0:
+        return 1.5;
+      case 7:
+        return 5;
+      case 14:
+        return 4.0;
+      case 30:
+        return 2.0;
+      default:
+        return 4.0;
     }
   }
 }

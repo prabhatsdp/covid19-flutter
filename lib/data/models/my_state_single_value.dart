@@ -64,14 +64,14 @@ class MyStateSingleValue {
   set statename(String stateCode) => this._stateName = stateNamesMap[stateCode.toUpperCase()];
   set value(int value) => this._value = value;
   set dateString(String dateString) => this._dateString = dateString;
-  set date(String dateString) => this._date = Helper.parseDateTimeDDMMMYY(dateString);
+  set date(DateTime date) => this._date = date;
 
-  get stateCode => this._stateCode;
-  get stateName => this._stateName;
-  get status => this._status;
-  get value => this._value;
-  get dateString => this._dateString;
-  get date => this._date;
+  String get stateCode => this._stateCode;
+  String get stateName => this._stateName;
+  String get status => this._status;
+  int get value => this._value;
+  String get dateString => this._dateString;
+  DateTime get date => this._date;
 
   bool equals({String stateCode}) {
     if (stateCode.toUpperCase() == this._stateCode || stateCode.toLowerCase() == this._stateCode) return true;
