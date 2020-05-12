@@ -10,7 +10,7 @@ class PageHeader extends StatefulWidget {
   _PageHeaderState createState() => _PageHeaderState();
 }
 
-class _PageHeaderState extends State<PageHeader> {
+class _PageHeaderState extends State<PageHeader> with AutomaticKeepAliveClientMixin {
   String dropDownValue = 'India';
   String titleName;
 
@@ -124,4 +124,8 @@ class _PageHeaderState extends State<PageHeader> {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

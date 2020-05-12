@@ -11,12 +11,12 @@ import 'models/my_state_daily_data.dart';
 abstract class PatientRepository {
   Future<Map<String, List>> fetchPatientData();
   Future<Map<String, List<MyStateSingleValue>>> fetchStatePatientDailyData(String stateCode);
+  Future<List<MyStateData>> fetchDistrictWiseData(String stateCode);
 }
 
 class CovidPatientRepository extends PatientRepository {
   @override
   Future<Map<String, List>> fetchPatientData() async {
-    // TODO: implement fetchStateWiseData
     Map<String, List> patientDataMap = Map();
     List<MyStateData> stateDataList = List();
     List<DailyData> dailyDataList = List();
@@ -47,16 +47,10 @@ class CovidPatientRepository extends PatientRepository {
 
   @override
   Future<Map<String, List<MyStateSingleValue>>> fetchStatePatientDailyData(String stateCode) async {
-    // TODO: implement fetchStatePatientData
     Map<String, List<MyStateSingleValue>> statePatientDataMap = Map();
     List<MyStateData> statePatientDataList = List();
     List<DailyData> statePatientDailyDataList = List();
-    String districtWiseUrl = "https://api.covid19india.org/v2/state_district_wise.json";
     String stateDailyDataUrl = "https://api.covid19india.org/states_daily.json";
-
-    // var districtWiseRes = await http.get(Uri.encodeFull(districtWiseUrl), headers: {
-    //   "Accept": "appplication/json",
-    // });
 
     var stateDailyRes = await http.get(Uri.encodeFull(stateDailyDataUrl), headers: {
       "Accept": "appplication/json",
@@ -150,5 +144,25 @@ class CovidPatientRepository extends PatientRepository {
     }
 
     return statePatientDataMap;
+  }
+
+  @override
+  Future<List<MyStateData>> fetchDistrictWiseData(String stateCode) async {
+    List<MyStateData> districtWiseData = List();
+    String districtWiseUrl = "https://api.covid19india.org/v2/state_district_wise.json";
+    var districtWiseRes = await http.get(Uri.encodeFull(districtWiseUrl), headers: {
+      "Accept": "appplication/json",
+    });
+
+    if (districtWiseRes.statusCode == 200) {
+      var jsonData = json.decode(districtWiseRes.body) as List;
+
+      var stateData = jsonData.firstWhere((item) => item["statecode"] == stateCode.toUpperCase() || item["statecode"] == stateCode.toLowerCase());
+      var districtData = stateData["districtData"] as List;
+      districtWiseData = districtData.map<MyStateData>((json) => MyStateData.fromDistrictJson(json)).toList();
+    } else {}
+
+    print("District Data Is: ${districtWiseData.toString()}");
+    return districtWiseData;
   }
 }

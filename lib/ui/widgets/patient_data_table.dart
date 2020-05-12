@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 class PatientDataTable extends StatefulWidget {
   final List<MyStateData> stateWiseData;
   final double _rowAnimDelay = 1.5;
+  final bool isStateDataTable;
 
-  PatientDataTable({Key key, @required this.stateWiseData}) : super(key: key);
+  PatientDataTable({Key key, @required this.stateWiseData, @required this.isStateDataTable}) : super(key: key);
 
   @override
   _PatientDataTableState createState() => _PatientDataTableState();
@@ -38,14 +39,16 @@ class _PatientDataTableState extends State<PatientDataTable> {
               children: buildTable(),
             ),
           ),
-          Column(
-            children: <Widget>[
-              WidgetEnterAnimation(
-                delay: widget._rowAnimDelay + 0.75,
-                child: buildTableRow(0, widget.stateWiseData.firstWhere((item) => item.state == "Total")),
-              ),
-            ],
-          ),
+          widget.isStateDataTable
+              ? Column(
+                  children: <Widget>[
+                    WidgetEnterAnimation(
+                      delay: widget._rowAnimDelay + 0.75,
+                      child: buildTableRow(0, widget.stateWiseData.firstWhere((item) => item.state == "Total")),
+                    ),
+                  ],
+                )
+              : Container(),
         ],
       ),
     );
@@ -214,15 +217,17 @@ class _PatientDataTableState extends State<PatientDataTable> {
         padding: const EdgeInsets.all(0.5),
         child: InkWell(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => StatePage(
-                  title: stateData.state,
-                  stateData: stateData,
+            if (widget.isStateDataTable) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => StatePage(
+                    title: stateData.state,
+                    stateData: stateData,
+                  ),
                 ),
-              ),
-            );
+              );
+            }
           },
           borderRadius: BorderRadius.circular(4),
           splashColor: Colors.blueAccent.withOpacity(0.3),
@@ -268,14 +273,28 @@ class _PatientDataTableState extends State<PatientDataTable> {
                     borderRadius: BorderRadius.circular(4),
                     color: Colors.blueAccent.withAlpha(10),
                   ),
-                  child: Center(
-                    child: Text(
-                      stateData.confirmed == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.confirmed) : Helper.formatNumberAsThousands(stateData.confirmed)),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.blueAccent,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      stateData.todayConfirmed != 0
+                          ? Text(
+                              stateData.state != "Total" ? "+" + Helper.formatNumber(stateData.todayConfirmed) : Helper.formatNumberAsThousands(stateData.todayConfirmed),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 12,
+                                color: Colors.blueAccent,
+                              ),
+                            )
+                          : Container(),
+                      Text(
+                        stateData.confirmed == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.confirmed) : Helper.formatNumberAsThousands(stateData.confirmed)),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.blueAccent,
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),
@@ -291,14 +310,28 @@ class _PatientDataTableState extends State<PatientDataTable> {
                     borderRadius: BorderRadius.circular(4),
                     color: Colors.amberAccent[700].withAlpha(10),
                   ),
-                  child: Center(
-                    child: Text(
-                      stateData.active == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.active) : Helper.formatNumberAsThousands(stateData.active)),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.amberAccent[700],
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      stateData.todayActive != 0
+                          ? Text(
+                              stateData.state != "Total" ? (stateData.todayActive.isNegative ? "" : "+") + Helper.formatNumber(stateData.todayActive) : Helper.formatNumberAsThousands(stateData.todayActive),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 12,
+                                color: Colors.amberAccent[700],
+                              ),
+                            )
+                          : Container(),
+                      Text(
+                        stateData.active == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.active) : Helper.formatNumberAsThousands(stateData.active)),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.amberAccent[700],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),
@@ -314,14 +347,28 @@ class _PatientDataTableState extends State<PatientDataTable> {
                     borderRadius: BorderRadius.circular(4),
                     color: Colors.greenAccent[700].withAlpha(10),
                   ),
-                  child: Center(
-                    child: Text(
-                      stateData.recovered == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.recovered) : Helper.formatNumberAsThousands(stateData.recovered)),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.greenAccent[700],
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      stateData.todayRecovered != 0
+                          ? Text(
+                              stateData.state != "Total" ? "+" + Helper.formatNumber(stateData.todayRecovered) : Helper.formatNumberAsThousands(stateData.todayRecovered),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 12,
+                                color: Colors.greenAccent[700],
+                              ),
+                            )
+                          : Container(),
+                      Text(
+                        stateData.recovered == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.recovered) : Helper.formatNumberAsThousands(stateData.recovered)),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.greenAccent[700],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),
@@ -334,14 +381,28 @@ class _PatientDataTableState extends State<PatientDataTable> {
                     borderRadius: BorderRadius.circular(4),
                     color: Colors.redAccent.withAlpha(10),
                   ),
-                  child: Center(
-                    child: Text(
-                      stateData.deaths == 0 ? "_" : (stateData.state != "Total" ? Helper.formatNumber(stateData.deaths) : Helper.formatNumberAsThousands(stateData.deaths)),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.redAccent,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      stateData.todayDeaths != 0
+                          ? Text(
+                              stateData.state != "Total" ? "+" + Helper.formatNumber(stateData.todayDeaths) : Helper.formatNumberAsThousands(stateData.todayDeaths),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 12,
+                                color: Colors.redAccent[700],
+                              ),
+                            )
+                          : Container(),
+                      Text(
+                        stateData.deaths == 0 ? "_" : (stateData.state != "Total" ? Helper.formatNumber(stateData.deaths) : Helper.formatNumberAsThousands(stateData.deaths)),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.redAccent,
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),
@@ -349,62 +410,6 @@ class _PatientDataTableState extends State<PatientDataTable> {
           ),
         ),
       ),
-    );
-  }
-
-  /// This function takes no arguments and
-  /// returns a DataTable widget for the stateWiseData
-
-  Widget buildDataTable() {
-    return DataTable(
-      columnSpacing: 10,
-      horizontalMargin: 10,
-      dataRowHeight: 30,
-      headingRowHeight: 40,
-      columns: [
-        DataColumn(
-          label: Text(
-            "State",
-            style: TextStyle(fontSize: 16),
-          ),
-          numeric: false,
-          onSort: (i, b) {},
-          tooltip: "State Name",
-        ),
-        DataColumn(
-          label: Text("Confirmed"),
-          numeric: false,
-          onSort: (i, b) {},
-          tooltip: "Confirmed",
-        ),
-        DataColumn(
-          label: Text("A"),
-          numeric: false,
-          onSort: (i, b) {},
-          tooltip: "Active",
-        ),
-        DataColumn(
-          label: Text("R"),
-          numeric: false,
-          onSort: (i, b) {},
-          tooltip: "Recovered",
-        ),
-        DataColumn(
-          label: Text("D"),
-          numeric: false,
-          onSort: (i, b) {},
-          tooltip: "Deaths",
-        ),
-      ],
-      rows: [
-        DataRow(cells: [
-          DataCell(Text("5000")),
-          DataCell(Text("5000")),
-          DataCell(Text("5000")),
-          DataCell(Text("5000")),
-          DataCell(Text("5000")),
-        ])
-      ],
     );
   }
 }

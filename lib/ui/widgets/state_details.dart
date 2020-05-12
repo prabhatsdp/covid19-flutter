@@ -1,9 +1,11 @@
 import 'package:covid_19/animations/widget_enter_anim.dart';
+import 'package:covid_19/bloc/district_data_bloc.dart';
 import 'package:covid_19/bloc/state_data_bloc.dart';
 import 'package:covid_19/data/models/my_state_data.dart';
 import 'package:covid_19/data/patientrepository.dart';
 import 'package:covid_19/misc/helper.dart';
 import 'package:covid_19/ui/widgets/daily_state_combined_char.dart';
+import 'package:covid_19/ui/widgets/patient_data_table.dart';
 import 'package:covid_19/ui/widgets/state_combined_chart.dart';
 import 'package:covid_19/ui/widgets/state_summary_card.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,7 @@ class StateDetails extends StatelessWidget {
       child: Column(
         children: <Widget>[
           WidgetEnterAnimation(
-            delay: 1.2,
+            delay: 1,
             child: Align(
               alignment: Alignment.topLeft,
               child: Padding(
@@ -49,7 +51,7 @@ class StateDetails extends StatelessWidget {
             height: 10,
           ),
           WidgetEnterAnimation(
-            delay: 1.4,
+            delay: 1.2,
             child: Row(
               children: <Widget>[
                 Expanded(
@@ -73,7 +75,7 @@ class StateDetails extends StatelessWidget {
             ),
           ),
           WidgetEnterAnimation(
-            delay: 1.6,
+            delay: 1.4,
             child: Row(
               children: <Widget>[
                 Expanded(
@@ -110,7 +112,7 @@ class StateDetails extends StatelessWidget {
                 return Column(
                   children: <Widget>[
                     WidgetEnterAnimation(
-                      delay: 1,
+                      delay: 0.5,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                         child: Container(
@@ -171,6 +173,27 @@ class StateDetails extends StatelessWidget {
               return showLoadingScreen();
             },
           ),
+          BlocBuilder<DistrictDataBloc, DistrictDataState>(
+            builder: (context, state) {
+              if (state is DistrictDataInitial) {
+                BlocProvider.of<DistrictDataBloc>(context).add(GetStateDistrictData(stateCode: stateData.stateCode));
+                return Container();
+              }
+              if (state is DistrictDataLoading) {
+                return Container();
+              }
+              if (state is DistrictDataLoaded) {
+                return PatientDataTable(
+                  stateWiseData: state.districtWiseData,
+                  isStateDataTable: false,
+                );
+              }
+              if (state is DistrictDataError) {
+                return showNoDataScreen();
+              }
+              return Container();
+            },
+          )
         ],
       ),
     );

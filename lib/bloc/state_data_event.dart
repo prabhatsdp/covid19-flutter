@@ -9,3 +9,4 @@ class GetStatePatientData extends StateDataEvent {
   final String stateCode;
   const GetStatePatientData({@required this.stateCode});
 }
+

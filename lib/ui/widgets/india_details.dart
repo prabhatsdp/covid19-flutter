@@ -110,6 +110,7 @@ class IndiaDetails extends StatelessWidget {
           ),
           PatientDataTable(
             stateWiseData: stateWiseData,
+            isStateDataTable: true,
           )
         ],
       ),

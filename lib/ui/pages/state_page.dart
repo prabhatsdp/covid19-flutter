@@ -1,3 +1,4 @@
+import 'package:covid_19/bloc/district_data_bloc.dart';
 import 'package:covid_19/bloc/state_data_bloc.dart';
 import 'package:covid_19/data/models/my_state_data.dart';
 import 'package:covid_19/data/patientrepository.dart';
@@ -14,10 +15,19 @@ class StatePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<StateDataBloc>(
-      create: (BuildContext context) => StateDataBloc(
-        patientRepository: CovidPatientRepository(),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<StateDataBloc>(
+          create: (BuildContext context) => StateDataBloc(
+            patientRepository: CovidPatientRepository(),
+          ),
+        ),
+        BlocProvider<DistrictDataBloc>(
+          create: (BuildContext context) => DistrictDataBloc(
+            patientRepository: CovidPatientRepository(),
+          ),
+        ),
+      ],
       child: LayoutBuilder(builder: (BuildContext context, BoxConstraints viewportConstraints) {
         return AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle(
@@ -26,8 +36,27 @@ class StatePage extends StatelessWidget {
             statusBarIconBrightness: Brightness.dark,
           ),
           child: Scaffold(
+            // appBar: AppBar(
+            //   backgroundColor: Colors.white,
+            //   title: Text(
+            //     stateData.state,
+            //     style: TextStyle(
+            //       color: Colors.black.withBlue(50),
+            //       fontSize: 24.0,
+            //       fontWeight: FontWeight.w600
+            //     ),
+            //   ),
+            //   leading: IconButton(
+            //       icon: Icon(
+            //         Icons.arrow_back_ios,
+            //         color: Colors.black.withBlue(50),
+            //         size: 24.0,
+            //       ),
+            //       onPressed: () => Navigator.of(context).pop()),
+            // ),
             body: SafeArea(
               child: ListView(
+                addAutomaticKeepAlives: true,
                 shrinkWrap: true,
                 children: <Widget>[
                   Container(
