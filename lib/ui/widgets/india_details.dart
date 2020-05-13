@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:covid_19/ui/pages/corona_info_page.dart';
 
 class IndiaDetails extends StatelessWidget {
   final Map<String, List> patientDataMap;
@@ -63,14 +64,14 @@ class IndiaDetails extends StatelessWidget {
                 bottom: 10.0,
               ),
               child: Container(
-                height: 200,
+                height: 170,
                 child: Stack(
                   overflow: Overflow.visible,
                   children: <Widget>[
                     Positioned(
                       top: 50,
                       child: Container(
-                        height: 150,
+                        height: 120,
                         padding: EdgeInsets.all(16.0),
                         width: MediaQuery.of(context).size.width - 32,
                         decoration: BoxDecoration(
@@ -98,14 +99,12 @@ class IndiaDetails extends StatelessWidget {
                                 children: <Widget>[
                                   Container(
                                     child: AutoSizeText(
-                                      "Know Symptoms and Prevention Measures of COVID-19.",
-                                      maxLines: 3,
+                                      "Spread Awareness not Panic.",
+                                      maxLines: 2,
                                       style: TextStyle(color: Colors.black.withBlue(150), fontWeight: FontWeight.w800, fontSize: 20.0),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 8.0,
-                                  ),
+                                  Spacer(),
                                   Container(
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -133,12 +132,13 @@ class IndiaDetails extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      bottom: 25,
+                      bottom: 20,
                       left: 8,
                       child: Material(
                         type: MaterialType.transparency,
                         child: Container(
-                          height: 175,
+                          height: 150,
+                          color: Colors.white,
                           child: Image.asset(
                             "images/corona_person.png",
                           ),
@@ -150,12 +150,19 @@ class IndiaDetails extends StatelessWidget {
                       child: Material(
                         type: MaterialType.transparency,
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CoronaInfoPage(),
+                              ),
+                            );
+                          },
                           borderRadius: BorderRadius.circular(4),
                           splashColor: Colors.blueAccent.withOpacity(0.3),
                           highlightColor: Colors.blueAccent.withOpacity(0.15),
                           child: Container(
-                            height: 150,
+                            height: 120,
                             padding: EdgeInsets.all(16.0),
                             width: MediaQuery.of(context).size.width - 32,
                             decoration: BoxDecoration(
