@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:covid_19/animations/widget_enter_anim.dart';
 import 'package:covid_19/data/models/daily_data.dart';
 import 'package:covid_19/data/models/my_state_data.dart';
@@ -7,6 +8,8 @@ import 'package:covid_19/ui/pages/delta_detail_page.dart';
 import 'package:covid_19/ui/widgets/patient_data_table.dart';
 import 'package:covid_19/ui/widgets/summarycard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
 class IndiaDetails extends StatelessWidget {
@@ -49,6 +52,124 @@ class IndiaDetails extends StatelessWidget {
           ),
           SizedBox(
             height: 10,
+          ),
+          WidgetEnterAnimation(
+            delay: 0.75,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 0,
+                left: 10.0,
+                right: 10.0,
+                bottom: 10.0,
+              ),
+              child: Container(
+                height: 200,
+                child: Stack(
+                  overflow: Overflow.visible,
+                  children: <Widget>[
+                    Positioned(
+                      top: 50,
+                      child: Container(
+                        height: 150,
+                        padding: EdgeInsets.all(16.0),
+                        width: MediaQuery.of(context).size.width - 32,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 24,
+                              spreadRadius: 0,
+                              color: Colors.blueAccent.withOpacity(0.20),
+                              offset: Offset(4, 8),
+                            ),
+                          ],
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Spacer(
+                              flex: 2,
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    child: AutoSizeText(
+                                      "Know Symptoms and Prevention Measures of COVID-19.",
+                                      maxLines: 3,
+                                      style: TextStyle(color: Colors.black.withBlue(150), fontWeight: FontWeight.w800, fontSize: 20.0),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 8.0,
+                                  ),
+                                  Container(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: <Widget>[
+                                        Text(
+                                          "Learn More",
+                                          style: TextStyle(color: Colors.black.withBlue(150), fontWeight: FontWeight.w800, fontSize: 16.0),
+                                        ),
+                                        SizedBox(
+                                          width: 4,
+                                        ),
+                                        Icon(
+                                          Icons.arrow_forward,
+                                          color: Colors.black.withBlue(150),
+                                          size: 20,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 25,
+                      left: 8,
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: Container(
+                          height: 175,
+                          child: Image.asset(
+                            "images/corona_person.png",
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 50,
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: InkWell(
+                          onTap: () {},
+                          borderRadius: BorderRadius.circular(4),
+                          splashColor: Colors.blueAccent.withOpacity(0.3),
+                          highlightColor: Colors.blueAccent.withOpacity(0.15),
+                          child: Container(
+                            height: 150,
+                            padding: EdgeInsets.all(16.0),
+                            width: MediaQuery.of(context).size.width - 32,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    // SvgPicture.asset("images/corona_person.svg"),
+                  ],
+                ),
+              ),
+            ),
           ),
           WidgetEnterAnimation(
             delay: 1,

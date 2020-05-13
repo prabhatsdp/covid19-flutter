@@ -29,97 +29,89 @@ class _PageHeaderState extends State<PageHeader> with AutomaticKeepAliveClientMi
           left: 16,
           right: 16,
         ),
-        child: WidgetEnterAnimation(
-          delay: 0.5,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  titleName == "India"
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 0,
-                            horizontal: 2,
-                          ),
-                          child: Text(
-                            "Current Outbreak",
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black.withBlue(50)),
-                          ),
-                        )
-                      : InkWell(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                          borderRadius: BorderRadius.circular(4),
-                          splashColor: Colors.blueAccent.withOpacity(0.3),
-                          highlightColor: Colors.blueAccent.withOpacity(0.15),
-                          child: Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.black.withBlue(50),
-                          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                titleName == "India"
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 0,
+                          horizontal: 2,
                         ),
-                  Icon(
-                    Icons.notifications,
-                    size: 32,
-                    color: Colors.black26.withBlue(100),
-                  ),
-                ],
+                        child: Text(
+                          "Current Outbreak",
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black.withBlue(50)),
+                        ),
+                      )
+                    : InkWell(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        borderRadius: BorderRadius.circular(4),
+                        splashColor: Colors.blueAccent.withOpacity(0.3),
+                        highlightColor: Colors.blueAccent.withOpacity(0.15),
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.black.withBlue(50),
+                        ),
+                      ),
+              ],
+            ),
+            Text(
+              titleName,
+              style: TextStyle(
+                fontSize: 48,
+                color: Colors.black.withBlue(100),
+                fontWeight: FontWeight.w600,
+                fontFamily: "Niramit",
               ),
-              Text(
-                titleName,
-                style: TextStyle(
-                  fontSize: 48,
-                  color: Colors.black.withBlue(100),
-                  fontWeight: FontWeight.w600,
-                  fontFamily: "Niramit",
-                ),
-              ),
-              //todo: implement global data and uncomment this code to handle page switching based on dropdown selection.
-              // Theme(
-              //   data: Theme.of(context).copyWith(
-              //     canvasColor: Colors.greenAccent,
-              //   ),
-              //   child: DropdownButtonHideUnderline(
-              //     child: DropdownButton<String>(
-              //       value: dropDownValue,
-              //       icon: Icon(
-              //         Icons.arrow_drop_down,
-              //         size: 42,
-              //         color: Colors.black26.withBlue(100),
-              //       ),
-              //       style: TextStyle(fontSize: 48, color: Colors.black.withBlue(100), fontWeight: FontWeight.w600, fontFamily: "Niramit"),
-              //       itemHeight: 64,
-              //       items: <String>[
-              //         "India",
-              //         "Global"
-              //       ].map((String value) {
-              //         return DropdownMenuItem<String>(
-              //           child: Container(
-              //             padding: EdgeInsets.only(
-              //               bottom: 10,
-              //               right: 10,
-              //             ),
-              //             child: Text(
-              //               value,
-              //               style: TextStyle(fontWeight: FontWeight.w600),
-              //             ),
-              //           ),
-              //           value: value,
-              //         );
-              //       }).toList(),
-              //       onChanged: (String newValue) {
-              //         setState(() {
-              //           dropDownValue = newValue;
-              //         });
-              //       },
-              //     ),
-              //   ),
-              // ),
-            ],
-          ),
+            ),
+            //todo: implement global data and uncomment this code to handle page switching based on dropdown selection.
+            // Theme(
+            //   data: Theme.of(context).copyWith(
+            //     canvasColor: Colors.greenAccent,
+            //   ),
+            //   child: DropdownButtonHideUnderline(
+            //     child: DropdownButton<String>(
+            //       value: dropDownValue,
+            //       icon: Icon(
+            //         Icons.arrow_drop_down,
+            //         size: 42,
+            //         color: Colors.black26.withBlue(100),
+            //       ),
+            //       style: TextStyle(fontSize: 48, color: Colors.black.withBlue(100), fontWeight: FontWeight.w600, fontFamily: "Niramit"),
+            //       itemHeight: 64,
+            //       items: <String>[
+            //         "India",
+            //         "Global"
+            //       ].map((String value) {
+            //         return DropdownMenuItem<String>(
+            //           child: Container(
+            //             padding: EdgeInsets.only(
+            //               bottom: 10,
+            //               right: 10,
+            //             ),
+            //             child: Text(
+            //               value,
+            //               style: TextStyle(fontWeight: FontWeight.w600),
+            //             ),
+            //           ),
+            //           value: value,
+            //         );
+            //       }).toList(),
+            //       onChanged: (String newValue) {
+            //         setState(() {
+            //           dropDownValue = newValue;
+            //         });
+            //       },
+            //     ),
+            //   ),
+            // ),
+          ],
         ),
       ),
     );

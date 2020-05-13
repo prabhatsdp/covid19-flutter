@@ -54,7 +54,7 @@ class MyStateSingleValue {
     this._stateCode = stateCode;
     this._stateName = stateNamesMap[stateCode.toUpperCase()];
     this._status = status;
-    this._value = value;
+    this._value = value != null ? value : 0;
     this._dateString = dateString;
     this._date = Helper.parseDateTimeDDMMMYY(dateString);
   }

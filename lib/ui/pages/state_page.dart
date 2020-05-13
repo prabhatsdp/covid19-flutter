@@ -1,3 +1,4 @@
+import 'package:covid_19/animations/widget_enter_anim.dart';
 import 'package:covid_19/bloc/district_data_bloc.dart';
 import 'package:covid_19/bloc/state_data_bloc.dart';
 import 'package:covid_19/data/models/my_state_data.dart';
@@ -62,8 +63,11 @@ class StatePage extends StatelessWidget {
                   Container(
                     child: PageHeader(title: title),
                   ),
-                  StateDetails(
-                    stateData: stateData,
+                  WidgetEnterAnimation(
+                    delay: 0,
+                    child: StateDetails(
+                      stateData: stateData,
+                    ),
                   ),
                 ],
               ),

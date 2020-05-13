@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
-                      minHeight: viewportConstraints.maxHeight - BOTTOM_BAR_HEIGHT,
+                      minHeight: viewportConstraints.maxHeight,
                     ),
                     child: IntrinsicHeight(
                       child: Column(
@@ -69,7 +69,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              bottomNavigationBar: AnimatedBottomBar(navBarItems: navBarItems),
+              // bottomNavigationBar: AnimatedBottomBar(navBarItems: navBarItems),
             ),
           );
         },

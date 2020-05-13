@@ -15,6 +15,7 @@ abstract class PatientRepository {
 }
 
 class CovidPatientRepository extends PatientRepository {
+  static const String CLASS_TAG = "PatientRepository";
   @override
   Future<Map<String, List>> fetchPatientData() async {
     Map<String, List> patientDataMap = Map();
@@ -75,7 +76,6 @@ class CovidPatientRepository extends PatientRepository {
           dateString: date,
         );
       }).toList();
-
       var rcvrdStateDataList = recoveredDailyData.map((item) {
         String date = item["date"];
         List<String> dateStringList = date.split("-");
@@ -88,7 +88,6 @@ class CovidPatientRepository extends PatientRepository {
           dateString: date,
         );
       }).toList();
-
       var deathsStateDataList = deathsDailyData.map((item) {
         String date = item["date"];
         List<String> dateStringList = date.split("-");
@@ -101,7 +100,6 @@ class CovidPatientRepository extends PatientRepository {
           dateString: date,
         );
       }).toList();
-
       List<MyStateSingleValue> activeStateDataList = List();
       List<MyStateSingleValue> cnfStateCumulativeDataList = List();
       List<MyStateSingleValue> rcvrdStateCumulativeDataList = List();
@@ -111,12 +109,11 @@ class CovidPatientRepository extends PatientRepository {
       int cumulativeRcvrdValue = 0;
       int cumulativeDeathsValue = 0;
       int cumulativeActiveValue = 0;
-
       for (int index = 0; index < cnfStateDataList.length; index++) {
         MyStateSingleValue cnfStateData = cnfStateDataList[index];
         MyStateSingleValue rcvrdStateData = rcvrdStateDataList.firstWhere((item) => item.dateEquals(cnfStateData.dateString));
         MyStateSingleValue deathsStateData = deathsStateDataList.firstWhere((item) => item.dateEquals(cnfStateData.dateString));
-        MyStateSingleValue activeStateData = MyStateSingleValue(stateCode: stateCode, status: "Active", dateString: cnfStateData.dateString, value: cnfStateData.value - rcvrdStateData.value - deathsStateData.value);
+        MyStateSingleValue activeStateData = MyStateSingleValue(stateCode: stateCode, status: "Active", dateString: cnfStateData.dateString, value: (cnfStateData.value - rcvrdStateData.value - deathsStateData.value));
 
         cumulativeCnfValue += cnfStateData.value;
         cumulativeRcvrdValue += rcvrdStateData.value;

@@ -82,7 +82,7 @@ class _PatientDataTableState extends State<PatientDataTable> {
             Expanded(
               flex: 16,
               child: Tooltip(
-                message: "State Name",
+                message: widget.isStateDataTable ? "State Name" : "District Name",
                 child: Container(
                   margin: EdgeInsets.only(
                     right: 1,
@@ -95,7 +95,7 @@ class _PatientDataTableState extends State<PatientDataTable> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "State/UT",
+                      widget.isStateDataTable ? "State/UT" : "District",
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
                         fontSize: 16,
@@ -109,22 +109,25 @@ class _PatientDataTableState extends State<PatientDataTable> {
             // Confirmed Count Cell
             Expanded(
               flex: 10,
-              child: Container(
-                margin: EdgeInsets.only(
-                  right: 1,
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Colors.blueAccent.withAlpha(10),
-                ),
-                child: Center(
-                  child: Text(
-                    "C",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      color: Colors.blueAccent,
-                      fontSize: 16,
+              child: Tooltip(
+                message: "Confirmed",
+                child: Container(
+                  margin: EdgeInsets.only(
+                    right: 1,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.blueAccent.withAlpha(10),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "C",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        color: Colors.blueAccent,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),
@@ -133,22 +136,25 @@ class _PatientDataTableState extends State<PatientDataTable> {
             // Active Count Cell
             Expanded(
               flex: 10,
-              child: Container(
-                margin: EdgeInsets.only(
-                  right: 1,
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Colors.amberAccent[700].withAlpha(10),
-                ),
-                child: Center(
-                  child: Text(
-                    "A",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      color: Colors.amberAccent[700],
-                      fontSize: 16,
+              child: Tooltip(
+                message: "Active",
+                child: Container(
+                  margin: EdgeInsets.only(
+                    right: 1,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.amberAccent[700].withAlpha(10),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "A",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        color: Colors.amberAccent[700],
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),
@@ -157,22 +163,25 @@ class _PatientDataTableState extends State<PatientDataTable> {
             // Recovered Count Cell
             Expanded(
               flex: 10,
-              child: Container(
-                margin: EdgeInsets.only(
-                  right: 1,
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Colors.greenAccent[700].withAlpha(10),
-                ),
-                child: Center(
-                  child: Text(
-                    "R",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      color: Colors.greenAccent[700],
-                      fontSize: 16,
+              child: Tooltip(
+                message: "Recovered",
+                child: Container(
+                  margin: EdgeInsets.only(
+                    right: 1,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.greenAccent[700].withAlpha(10),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "R",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        color: Colors.greenAccent[700],
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),
@@ -181,19 +190,22 @@ class _PatientDataTableState extends State<PatientDataTable> {
             // Deaths Count Cell
             Expanded(
               flex: 8,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Colors.redAccent.withAlpha(10),
-                ),
-                child: Center(
-                  child: Text(
-                    "D",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      color: Colors.redAccent,
-                      fontSize: 16,
+              child: Tooltip(
+                message: "Deaths",
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.redAccent.withAlpha(10),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "D",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        color: Colors.redAccent,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),
@@ -215,198 +227,201 @@ class _PatientDataTableState extends State<PatientDataTable> {
     return IntrinsicHeight(
       child: Padding(
         padding: const EdgeInsets.all(0.5),
-        child: InkWell(
-          onTap: () {
-            if (widget.isStateDataTable) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => StatePage(
-                    title: stateData.state,
-                    stateData: stateData,
+        child: Material(
+          type: MaterialType.transparency,
+          child: InkWell(
+            onTap: () {
+              if (widget.isStateDataTable) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => StatePage(
+                      title: stateData.state,
+                      stateData: stateData,
+                    ),
                   ),
-                ),
-              );
-            }
-          },
-          borderRadius: BorderRadius.circular(4),
-          splashColor: Colors.blueAccent.withOpacity(0.3),
-          highlightColor: Colors.blueAccent.withOpacity(0.15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              // State Name Cell
-              Expanded(
-                flex: 16,
-                child: Container(
-                  margin: EdgeInsets.only(
-                    right: 1,
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: Colors.black.withAlpha(5),
-                  ),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      stateData.state,
-                      style: TextStyle(
-                        fontWeight: stateData.state != "Total" ? FontWeight.w600 : FontWeight.w900,
-                        fontSize: stateData.state != "Total" ? 14 : 16,
-                        color: Colors.black.withBlue(100),
+                );
+              }
+            },
+            borderRadius: BorderRadius.circular(4),
+            splashColor: Colors.blueAccent.withOpacity(0.3),
+            highlightColor: Colors.blueAccent.withOpacity(0.15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                // State Name Cell
+                Expanded(
+                  flex: 16,
+                  child: Container(
+                    margin: EdgeInsets.only(
+                      right: 1,
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: Colors.black.withAlpha(5),
+                    ),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        stateData.state,
+                        style: TextStyle(
+                          fontWeight: stateData.state != "Total" ? FontWeight.w600 : FontWeight.w900,
+                          fontSize: stateData.state != "Total" ? 14 : 16,
+                          color: Colors.black.withBlue(100),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              // Confirmed Count Cell
-              Expanded(
-                flex: 10,
-                child: Container(
-                  margin: EdgeInsets.only(
-                    right: 1,
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: Colors.blueAccent.withAlpha(10),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      stateData.todayConfirmed != 0
-                          ? Text(
-                              stateData.state != "Total" ? "+" + Helper.formatNumber(stateData.todayConfirmed) : Helper.formatNumberAsThousands(stateData.todayConfirmed),
-                              style: TextStyle(
-                                fontWeight: FontWeight.w900,
-                                fontSize: 12,
-                                color: Colors.blueAccent,
-                              ),
-                            )
-                          : Container(),
-                      Text(
-                        stateData.confirmed == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.confirmed) : Helper.formatNumberAsThousands(stateData.confirmed)),
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.blueAccent,
+                // Confirmed Count Cell
+                Expanded(
+                  flex: 10,
+                  child: Container(
+                    margin: EdgeInsets.only(
+                      right: 1,
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: Colors.blueAccent.withAlpha(10),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        stateData.todayConfirmed != 0
+                            ? Text(
+                                stateData.state != "Total" ? "+" + Helper.formatNumber(stateData.todayConfirmed) : Helper.formatNumberAsThousands(stateData.todayConfirmed),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 12,
+                                  color: Colors.blueAccent,
+                                ),
+                              )
+                            : Container(),
+                        Text(
+                          stateData.confirmed == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.confirmed) : Helper.formatNumberAsThousands(stateData.confirmed)),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.blueAccent,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              // Active Count Cell
-              Expanded(
-                flex: 10,
-                child: Container(
-                  margin: EdgeInsets.only(
-                    right: 1,
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: Colors.amberAccent[700].withAlpha(10),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      stateData.todayActive != 0
-                          ? Text(
-                              stateData.state != "Total" ? (stateData.todayActive.isNegative ? "" : "+") + Helper.formatNumber(stateData.todayActive) : Helper.formatNumberAsThousands(stateData.todayActive),
-                              style: TextStyle(
-                                fontWeight: FontWeight.w900,
-                                fontSize: 12,
-                                color: Colors.amberAccent[700],
-                              ),
-                            )
-                          : Container(),
-                      Text(
-                        stateData.active == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.active) : Helper.formatNumberAsThousands(stateData.active)),
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.amberAccent[700],
+                // Active Count Cell
+                Expanded(
+                  flex: 10,
+                  child: Container(
+                    margin: EdgeInsets.only(
+                      right: 1,
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: Colors.amberAccent[700].withAlpha(10),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        stateData.todayActive != 0
+                            ? Text(
+                                stateData.state != "Total" ? (stateData.todayActive.isNegative ? "" : "+") + Helper.formatNumber(stateData.todayActive) : Helper.formatNumberAsThousands(stateData.todayActive),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 12,
+                                  color: Colors.amberAccent[700],
+                                ),
+                              )
+                            : Container(),
+                        Text(
+                          stateData.active == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.active) : Helper.formatNumberAsThousands(stateData.active)),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.amberAccent[700],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              // Recovered Count Cell
-              Expanded(
-                flex: 10,
-                child: Container(
-                  margin: EdgeInsets.only(
-                    right: 1,
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: Colors.greenAccent[700].withAlpha(10),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      stateData.todayRecovered != 0
-                          ? Text(
-                              stateData.state != "Total" ? "+" + Helper.formatNumber(stateData.todayRecovered) : Helper.formatNumberAsThousands(stateData.todayRecovered),
-                              style: TextStyle(
-                                fontWeight: FontWeight.w900,
-                                fontSize: 12,
-                                color: Colors.greenAccent[700],
-                              ),
-                            )
-                          : Container(),
-                      Text(
-                        stateData.recovered == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.recovered) : Helper.formatNumberAsThousands(stateData.recovered)),
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.greenAccent[700],
+                // Recovered Count Cell
+                Expanded(
+                  flex: 10,
+                  child: Container(
+                    margin: EdgeInsets.only(
+                      right: 1,
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: Colors.greenAccent[700].withAlpha(10),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        stateData.todayRecovered != 0
+                            ? Text(
+                                stateData.state != "Total" ? "+" + Helper.formatNumber(stateData.todayRecovered) : Helper.formatNumberAsThousands(stateData.todayRecovered),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 12,
+                                  color: Colors.greenAccent[700],
+                                ),
+                              )
+                            : Container(),
+                        Text(
+                          stateData.recovered == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.recovered) : Helper.formatNumberAsThousands(stateData.recovered)),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.greenAccent[700],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              // Deaths Count Cell
-              Expanded(
-                flex: 8,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: Colors.redAccent.withAlpha(10),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      stateData.todayDeaths != 0
-                          ? Text(
-                              stateData.state != "Total" ? "+" + Helper.formatNumber(stateData.todayDeaths) : Helper.formatNumberAsThousands(stateData.todayDeaths),
-                              style: TextStyle(
-                                fontWeight: FontWeight.w900,
-                                fontSize: 12,
-                                color: Colors.redAccent[700],
-                              ),
-                            )
-                          : Container(),
-                      Text(
-                        stateData.deaths == 0 ? "_" : (stateData.state != "Total" ? Helper.formatNumber(stateData.deaths) : Helper.formatNumberAsThousands(stateData.deaths)),
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.redAccent,
+                // Deaths Count Cell
+                Expanded(
+                  flex: 8,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: Colors.redAccent.withAlpha(10),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        stateData.todayDeaths != 0
+                            ? Text(
+                                stateData.state != "Total" ? "+" + Helper.formatNumber(stateData.todayDeaths) : Helper.formatNumberAsThousands(stateData.todayDeaths),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 12,
+                                  color: Colors.redAccent[700],
+                                ),
+                              )
+                            : Container(),
+                        Text(
+                          stateData.deaths == 0 ? "_" : (stateData.state != "Total" ? Helper.formatNumber(stateData.deaths) : Helper.formatNumberAsThousands(stateData.deaths)),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.redAccent,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
