@@ -75,15 +75,20 @@ class IndiaDetails extends StatelessWidget {
                         padding: EdgeInsets.all(16.0),
                         width: MediaQuery.of(context).size.width - 32,
                         decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 24,
-                              spreadRadius: 0,
-                              color: Colors.blueAccent.withOpacity(0.20),
-                              offset: Offset(4, 8),
-                            ),
-                          ],
-                          color: Colors.white,
+                          // boxShadow: [
+                          //   BoxShadow(
+                          //     blurRadius: 24,
+                          //     spreadRadius: 0,
+                          //     color: Colors.blueAccent.withOpacity(0.20),
+                          //     offset: Offset(4, 8),
+                          //   ),
+                          // ],
+                          color: Color(0xFF23395D),
+                          image: DecorationImage(
+                            image: AssetImage("images/corona_card_big.png"),
+                            fit: BoxFit.cover,
+                            alignment: Alignment.center,
+                          ),
                           borderRadius: BorderRadius.circular(16.0),
                         ),
                         child: Row(
@@ -101,7 +106,7 @@ class IndiaDetails extends StatelessWidget {
                                     child: AutoSizeText(
                                       "Spread Awareness not Panic.",
                                       maxLines: 2,
-                                      style: TextStyle(color: Colors.black.withBlue(150), fontWeight: FontWeight.w800, fontSize: 20.0),
+                                      style: TextStyle(color: Colors.lightBlue[100], fontWeight: FontWeight.w800, fontSize: 20.0),
                                     ),
                                   ),
                                   Spacer(),
@@ -111,14 +116,14 @@ class IndiaDetails extends StatelessWidget {
                                       children: <Widget>[
                                         Text(
                                           "Learn More",
-                                          style: TextStyle(color: Colors.black.withBlue(150), fontWeight: FontWeight.w800, fontSize: 16.0),
+                                          style: TextStyle(color: Colors.lightBlue[100], fontWeight: FontWeight.w800, fontSize: 16.0),
                                         ),
                                         SizedBox(
                                           width: 4,
                                         ),
                                         Icon(
                                           Icons.arrow_forward,
-                                          color: Colors.black.withBlue(150),
+                                          color: Colors.lightBlue[100],
                                           size: 20,
                                         ),
                                       ],
@@ -138,7 +143,6 @@ class IndiaDetails extends StatelessWidget {
                         type: MaterialType.transparency,
                         child: Container(
                           height: 150,
-                          color: Colors.white,
                           child: Image.asset(
                             "images/corona_person.png",
                           ),
