@@ -1,26 +1,11 @@
-import 'package:covid_19/animations/widget_enter_anim.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:covid_19/ui/pages/credits_page.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
-class PageHeader extends StatefulWidget {
-  final String title;
-
-  PageHeader({@required this.title});
-
-  @override
-  _PageHeaderState createState() => _PageHeaderState();
-}
-
-class _PageHeaderState extends State<PageHeader> with AutomaticKeepAliveClientMixin {
-  String dropDownValue = 'India';
-  String titleName;
-
-  @override
-  void initState() {
-    super.initState();
-    this.titleName = widget.title;
-  }
+class CreditsPageHeader extends StatelessWidget {
+  final String titleName;
+  const CreditsPageHeader({Key key, @required this.titleName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,52 +20,28 @@ class _PageHeaderState extends State<PageHeader> with AutomaticKeepAliveClientMi
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            titleName == "India"
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 0,
-                          horizontal: 2,
-                        ),
-                        child: Text(
-                          "Current Outbreak",
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black.withBlue(50)),
-                        ),
-                      ),
-                      // InkWell(
-                      //   onTap: () {
-                      //     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CreditsPage()));
-                      //   },
-                      //   borderRadius: BorderRadius.circular(4),
-                      //   splashColor: Colors.transparent,
-                      //   highlightColor: Colors.transparent,
-                      //   child: FaIcon(
-                      //     FontAwesomeIcons.solidHeart,
-                      //     color: Colors.pinkAccent,
-                      //   ),
-                      // ),
-                    ],
-                  )
-                : InkWell(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    borderRadius: BorderRadius.circular(4),
-                    splashColor: Colors.blueAccent.withOpacity(0.3),
-                    highlightColor: Colors.blueAccent.withOpacity(0.15),
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.black.withBlue(50),
-                    ),
-                  ),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              borderRadius: BorderRadius.circular(4),
+              splashColor: Colors.blueAccent.withOpacity(0.3),
+              highlightColor: Colors.blueAccent.withOpacity(0.15),
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black.withBlue(50),
+              ),
+            ),
+            SizedBox(
+              height: 16.0,
+            ),
             Align(
               alignment: Alignment.centerLeft,
-              child: Text(
+              child: AutoSizeText(
                 titleName,
+                maxLines: 1,
                 style: TextStyle(
-                  fontSize: 48,
+                  fontSize: 32,
                   color: Colors.black.withBlue(100),
                   fontWeight: FontWeight.w600,
                   fontFamily: "Niramit",
@@ -133,8 +94,4 @@ class _PageHeaderState extends State<PageHeader> with AutomaticKeepAliveClientMi
       ),
     );
   }
-
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
 }
