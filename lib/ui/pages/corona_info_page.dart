@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:covid_19/animations/widget_enter_anim.dart';
 import 'package:flutter/material.dart';
 import 'package:covid_19/ui/widgets/how_corona_spreads.dart';
 
@@ -16,17 +17,17 @@ class CoronaInfoPage extends StatelessWidget {
   ];
 
   final List<InfoCardModel> symptomsInfoList = [
-    InfoCardModel(title: "Air by Cough or Sneeze", imageSrc: "images/air_by_cough_or_sneeze.png"),
-    InfoCardModel(title: "Personal \nContact", imageSrc: "images/personal_contact.png"),
-    InfoCardModel(title: "Contaminated \nObjects", imageSrc: "images/contaminated_objects.png"),
-    InfoCardModel(title: "Crowd \nGathering", imageSrc: "images/crowd.png"),
+    InfoCardModel(title: "Dry Cough", imageSrc: "images/cough.png", cardColor: Colors.redAccent),
+    InfoCardModel(title: "High Fever", imageSrc: "images/fever.png", cardColor: Colors.redAccent),
+    InfoCardModel(title: "Sore \nThroat", imageSrc: "images/sore_throat.png", cardColor: Colors.redAccent),
+    InfoCardModel(title: "Difficulty in\nBreathing", imageSrc: "images/headache.png", cardColor: Colors.redAccent),
   ];
 
   final List<InfoCardModel> preventInfoList = [
-    InfoCardModel(title: "Air by Cough or Sneeze", imageSrc: "images/air_by_cough_or_sneeze.png"),
-    InfoCardModel(title: "Personal \nContact", imageSrc: "images/personal_contact.png"),
-    InfoCardModel(title: "Contaminated \nObjects", imageSrc: "images/contaminated_objects.png"),
-    InfoCardModel(title: "Crowd \nGathering", imageSrc: "images/crowd.png"),
+    InfoCardModel(title: "Wash Your Hands Often", imageSrc: "images/handwash.png", cardColor: Colors.greenAccent),
+    InfoCardModel(title: "Wear a Face Mask", imageSrc: "images/mask.png", cardColor: Colors.greenAccent),
+    InfoCardModel(title: "Avoid Contact with Sick People", imageSrc: "images/avoid_personal_contact.png", cardColor: Colors.greenAccent),
+    InfoCardModel(title: "Always Cover Your Cough or Sneeze", imageSrc: "images/cover_nose.png", cardColor: Colors.greenAccent),
   ];
 
   CoronaInfoPage({Key key}) : super(key: key);
@@ -131,146 +132,167 @@ class CoronaInfoPage extends StatelessWidget {
                     )
                   ];
                 },
-                body: SingleChildScrollView(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(24.0),
-                        topRight: Radius.circular(24.0),
+                body: WidgetEnterAnimation(
+                  delay: 0.5,
+                  child: SingleChildScrollView(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(24.0),
+                          topRight: Radius.circular(24.0),
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 32.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                "COVID-19 (Coronavirus)",
-                                style: TextStyle(
-                                  fontSize: 28.0,
-                                  fontWeight: FontWeight.w900,
-                                  letterSpacing: 0.4,
-                                  color: Colors.black.withBlue(100),
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 32.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "COVID-19 (Coronavirus)",
+                                  style: TextStyle(
+                                    fontSize: 28.0,
+                                    fontWeight: FontWeight.w900,
+                                    letterSpacing: 0.4,
+                                    color: Colors.black.withBlue(100),
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 4),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.phone,
-                                    size: 20.0,
-                                    color: Colors.black.withBlue(200).withOpacity(0.6),
-                                  ),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  Text(
-                                    "Helpline Number 011-23978046",
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600,
+                                SizedBox(height: 4),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.phone,
+                                      size: 20.0,
                                       color: Colors.black.withBlue(200).withOpacity(0.6),
                                     ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text(
+                                      "Helpline Number 011-23978046",
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black.withBlue(200).withOpacity(0.6),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 20.0),
+                                WidgetEnterAnimation(
+                                  delay: 0.5,
+                                  child: Text(
+                                    "Coronavirus disease (COVID-19) is an infectious disease caused by a newly discovered coronavirus.",
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black.withBlue(100).withOpacity(0.75),
+                                      height: 1.5,
+                                    ),
                                   ),
-                                ],
-                              ),
-                              SizedBox(height: 20.0),
-                              Text(
-                                "Coronavirus disease (COVID-19) is an infectious disease caused by a newly discovered coronavirus.",
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black.withBlue(100).withOpacity(0.75),
-                                  height: 1.5,
                                 ),
-                              ),
-                              SizedBox(height: 16.0),
-                              Text(
-                                "Most people who fall sick with COVID-19 will experience mild to moderate symptoms and recover without special treatment.",
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black.withBlue(100).withOpacity(0.8),
-                                  height: 1.5,
+                                SizedBox(height: 16.0),
+                                WidgetEnterAnimation(
+                                  delay: 0.75,
+                                  child: Text(
+                                    "Most people who fall sick with COVID-19 will experience mild to moderate symptoms and recover without special treatment.",
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black.withBlue(100).withOpacity(0.8),
+                                      height: 1.5,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 24.0),
-                              HowCoronaSpreads(
-                                title: "How it Spreads?",
-                                infoList: spreadInfoList,
-                              ),
-                              SizedBox(height: 24.0),
-                              HowCoronaSpreads(
-                                title: "Symptoms",
-                                infoList: symptomsInfoList,
-                              ),
-                              SizedBox(height: 24.0),
-                              HowCoronaSpreads(
-                                title: "Prevention",
-                                infoList: preventInfoList,
-                              ),
-                              // Text(
-                              //   "How it Spreads?",
-                              //   style: TextStyle(
-                              //     fontSize: 28.0,
-                              //     fontWeight: FontWeight.w900,
-                              //     letterSpacing: 0.4,
-                              //     color: Colors.black.withBlue(100),
-                              //   ),
-                              // ),
-                              // SizedBox(
-                              //   height: 20.0,
-                              // ),
-                              // Row(
-                              //   children: <Widget>[
-                              //     Expanded(
-                              //       child: InfoCardWithImage(
-                              //         imageSrc: "images/air_by_cough_or_sneeze.png",
-                              //         title: "Air by Cough or Sneeze",
-                              //       ),
-                              //     ),
-                              //     SizedBox(
-                              //       width: 20.0,
-                              //     ),
-                              //     Expanded(
-                              //       child: InfoCardWithImage(
-                              //         imageSrc: "images/personal_contact.png",
-                              //         title: "Personal \nContact",
-                              //       ),
-                              //     ),
-                              //   ],
-                              // ),
-                              // SizedBox(
-                              //   height: 20.0,
-                              // ),
-                              // Row(
-                              //   children: <Widget>[
-                              //     Expanded(
-                              //       child: InfoCardWithImage(
-                              //         imageSrc: "images/contaminated_objects.png",
-                              //         title: "Contaminted \nObjects",
-                              //       ),
-                              //     ),
-                              //     SizedBox(
-                              //       width: 20.0,
-                              //     ),
-                              //     Expanded(
-                              //       child: InfoCardWithImage(
-                              //         imageSrc: "images/crowd.png",
-                              //         title: "Crowd \nGathering",
-                              //       ),
-                              //     ),
-                              //   ],
-                              // ),
-                            ],
+                                SizedBox(height: 30.0),
+
+                                WidgetEnterAnimation(
+                                  delay: 1,
+                                  child: HowCoronaSpreads(
+                                    title: "Symptoms",
+                                    infoList: symptomsInfoList,
+                                  ),
+                                ),
+
+                                SizedBox(height: 32.0),
+                                WidgetEnterAnimation(
+                                  delay: 1.5,
+                                  child: HowCoronaSpreads(
+                                    title: "How it Spreads?",
+                                    infoList: spreadInfoList,
+                                  ),
+                                ),
+                                SizedBox(height: 32.0),
+                                WidgetEnterAnimation(
+                                  delay: 2,
+                                  child: HowCoronaSpreads(
+                                    title: "Prevention",
+                                    infoList: preventInfoList,
+                                  ),
+                                ),
+                                SizedBox(height: 32.0),
+                                // Text(
+                                //   "How it Spreads?",
+                                //   style: TextStyle(
+                                //     fontSize: 28.0,
+                                //     fontWeight: FontWeight.w900,
+                                //     letterSpacing: 0.4,
+                                //     color: Colors.black.withBlue(100),
+                                //   ),
+                                // ),
+                                // SizedBox(
+                                //   height: 20.0,
+                                // ),
+                                // Row(
+                                //   children: <Widget>[
+                                //     Expanded(
+                                //       child: InfoCardWithImage(
+                                //         imageSrc: "images/air_by_cough_or_sneeze.png",
+                                //         title: "Air by Cough or Sneeze",
+                                //       ),
+                                //     ),
+                                //     SizedBox(
+                                //       width: 20.0,
+                                //     ),
+                                //     Expanded(
+                                //       child: InfoCardWithImage(
+                                //         imageSrc: "images/personal_contact.png",
+                                //         title: "Personal \nContact",
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
+                                // SizedBox(
+                                //   height: 20.0,
+                                // ),
+                                // Row(
+                                //   children: <Widget>[
+                                //     Expanded(
+                                //       child: InfoCardWithImage(
+                                //         imageSrc: "images/contaminated_objects.png",
+                                //         title: "Contaminted \nObjects",
+                                //       ),
+                                //     ),
+                                //     SizedBox(
+                                //       width: 20.0,
+                                //     ),
+                                //     Expanded(
+                                //       child: InfoCardWithImage(
+                                //         imageSrc: "images/crowd.png",
+                                //         title: "Crowd \nGathering",
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

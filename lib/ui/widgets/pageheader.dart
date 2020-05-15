@@ -33,11 +33,11 @@ class _PageHeaderState extends State<PageHeader> with AutomaticKeepAliveClientMi
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                titleName == "India"
-                    ? Padding(
+            titleName == "India"
+                ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
                         padding: const EdgeInsets.symmetric(
                           vertical: 0,
                           horizontal: 2,
@@ -46,28 +46,41 @@ class _PageHeaderState extends State<PageHeader> with AutomaticKeepAliveClientMi
                           "Current Outbreak",
                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black.withBlue(50)),
                         ),
-                      )
-                    : InkWell(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
+                      ),
+                      InkWell(
+                        onTap: () {},
                         borderRadius: BorderRadius.circular(4),
                         splashColor: Colors.blueAccent.withOpacity(0.3),
                         highlightColor: Colors.blueAccent.withOpacity(0.15),
                         child: Icon(
-                          Icons.arrow_back_ios,
+                          Icons.healing,
                           color: Colors.black.withBlue(50),
                         ),
                       ),
-              ],
-            ),
-            Text(
-              titleName,
-              style: TextStyle(
-                fontSize: 48,
-                color: Colors.black.withBlue(100),
-                fontWeight: FontWeight.w600,
-                fontFamily: "Niramit",
+                    ],
+                  )
+                : InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    borderRadius: BorderRadius.circular(4),
+                    splashColor: Colors.blueAccent.withOpacity(0.3),
+                    highlightColor: Colors.blueAccent.withOpacity(0.15),
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.black.withBlue(50),
+                    ),
+                  ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                titleName,
+                style: TextStyle(
+                  fontSize: 48,
+                  color: Colors.black.withBlue(100),
+                  fontWeight: FontWeight.w600,
+                  fontFamily: "Niramit",
+                ),
               ),
             ),
             //todo: implement global data and uncomment this code to handle page switching based on dropdown selection.
