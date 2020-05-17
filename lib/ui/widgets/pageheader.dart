@@ -49,18 +49,18 @@ class _PageHeaderState extends State<PageHeader> with AutomaticKeepAliveClientMi
                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black.withBlue(50)),
                         ),
                       ),
-                      // InkWell(
-                      //   onTap: () {
-                      //     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CreditsPage()));
-                      //   },
-                      //   borderRadius: BorderRadius.circular(4),
-                      //   splashColor: Colors.transparent,
-                      //   highlightColor: Colors.transparent,
-                      //   child: FaIcon(
-                      //     FontAwesomeIcons.solidHeart,
-                      //     color: Colors.pinkAccent,
-                      //   ),
-                      // ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CreditsPage()));
+                        },
+                        borderRadius: BorderRadius.circular(4),
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        child: FaIcon(
+                          FontAwesomeIcons.solidHeart,
+                          color: Colors.pinkAccent,
+                        ),
+                      ),
                     ],
                   )
                 : InkWell(
