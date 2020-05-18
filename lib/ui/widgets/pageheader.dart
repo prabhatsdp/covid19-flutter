@@ -49,17 +49,36 @@ class _PageHeaderState extends State<PageHeader> with AutomaticKeepAliveClientMi
                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black.withBlue(50)),
                         ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CreditsPage()));
-                        },
-                        borderRadius: BorderRadius.circular(4),
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        child: FaIcon(
-                          FontAwesomeIcons.solidHeart,
-                          color: Colors.pinkAccent,
-                        ),
+                      Stack(
+                        children: <Widget>[
+                          Center(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Color(0xFF23395D),
+                                image: DecorationImage(
+                                  image: AssetImage("images/corona_card_big.png"),
+                                  fit: BoxFit.cover,
+                                  alignment: Alignment.center,
+                                ),
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CreditsPage()));
+                            },
+                            borderRadius: BorderRadius.circular(4),
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            child: Hero(
+                              tag: "love",
+                              child: FaIcon(
+                                FontAwesomeIcons.solidHeart,
+                                color: Colors.pinkAccent,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   )
@@ -77,13 +96,19 @@ class _PageHeaderState extends State<PageHeader> with AutomaticKeepAliveClientMi
                   ),
             Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                titleName,
-                style: TextStyle(
-                  fontSize: 48,
-                  color: Colors.black.withBlue(100),
-                  fontWeight: FontWeight.w600,
-                  fontFamily: "Niramit",
+              child: Hero(
+                tag: "title_name",
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: Text(
+                    titleName,
+                    style: TextStyle(
+                      fontSize: 48,
+                      color: Colors.black.withBlue(100),
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "Niramit",
+                    ),
+                  ),
                 ),
               ),
             ),
