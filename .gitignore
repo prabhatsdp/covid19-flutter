@@ -30,6 +30,9 @@
 .pub/
 /build/
 
+#KeyStoreProperties
+/android/key.properties
+
 # Web related
 lib/generated_plugin_registrant.dart
 
