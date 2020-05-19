@@ -6,7 +6,7 @@
 ## Demo Screenshots
 
 ### HomeScreen
-![HomeScreen1](images/scrshot_1_comp.jpg) ![HomeScreen2](images/scrshot_2_comp.jpg)
+![HomeScreen1](images/scrshot_1.png)
 
 # Download the Covid-19 Android Apk from [here](https://drive.google.com/open?id=1B1NF3VWXtflrdbZJvyYIGm_7o9SO7q-Z)
 
