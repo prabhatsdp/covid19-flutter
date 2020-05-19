@@ -5,7 +5,7 @@
 
 ## Demo Screens
 
+![Farmers Market Finder Demo](https://drive.google.com/open?id=11eACa-H0MTZwfSgmDQKXXX1xQHFTmzUg)
 
-### Download Android APK
-You can download Covid-19 Android Apk from [here](https://drive.google.com/open?id=1B1NF3VWXtflrdbZJvyYIGm_7o9SO7q-Z)
+# Download the Covid-19 Android Apk from [here](https://drive.google.com/open?id=1B1NF3VWXtflrdbZJvyYIGm_7o9SO7q-Z)
 
