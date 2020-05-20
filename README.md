@@ -3,12 +3,12 @@
  A flutter app to track Corona Virus outbreak in India. The app also helps people to be safe during this unforeseen situation and lockdown. We are also working to display Global Covid Data in the app. 
 
 
-## Demo Screenshots
+## Screenshots
 
 ### HomeScreen
 ![HomeScreen1](images/scrshot_2.png)
 
-### Other Screens
+### State Screen
 ![HomeScreen1](images/scrshot_1.png)
 
 
