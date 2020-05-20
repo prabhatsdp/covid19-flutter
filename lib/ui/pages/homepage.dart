@@ -1,10 +1,13 @@
 import 'package:covid_19/bloc/statewise_bloc.dart';
 import 'package:covid_19/data/patientrepository.dart';
+import 'package:covid_19/services/analytics.dart';
 import 'package:covid_19/ui/widgets/animated_bottom_bar.dart';
 import 'package:covid_19/ui/widgets/india_details.dart';
 import 'package:covid_19/ui/widgets/loading.dart';
 import 'package:covid_19/ui/widgets/no_data.dart';
 import 'package:covid_19/ui/widgets/pageheader.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +20,6 @@ class HomePage extends StatelessWidget {
     NavBarItem(title: "Safety", iconData: Icons.security, color: Colors.amberAccent[700]),
     NavBarItem(title: "About", iconData: Icons.info, color: Colors.deepPurpleAccent),
   ];
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<StatewiseBloc>(

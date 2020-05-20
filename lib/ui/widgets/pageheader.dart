@@ -65,7 +65,13 @@ class _PageHeaderState extends State<PageHeader> with AutomaticKeepAliveClientMi
                           ),
                           InkWell(
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => CreditsPage()));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) => CreditsPage(),
+                                  settings: const RouteSettings(name: "/home/credits_page"),
+                                ),
+                              );
                             },
                             borderRadius: BorderRadius.circular(4),
                             splashColor: Colors.transparent,

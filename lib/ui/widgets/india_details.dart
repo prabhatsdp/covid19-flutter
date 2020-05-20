@@ -159,6 +159,7 @@ class IndiaDetails extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => CoronaInfoPage(),
+                                settings: const RouteSettings(name: "/home/corona_info_page"),
                               ),
                             );
                           },

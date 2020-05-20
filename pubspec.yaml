@@ -33,6 +33,9 @@ dependencies:
   font_awesome_flutter: ^8.8.1
   url_launcher: ^5.4.7
   flutter_launcher_icons: ^0.7.5
+  cloud_firestore: ^0.13.5
+  firebase_analytics: ^5.0.11
+  firebase_core: ^0.4.4+3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -85,36 +88,7 @@ flutter:
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
-    - family: Overpass
-      fonts:
-        - asset: fonts/Overpass-Regular.ttf
-          weight: 400
-        - asset: fonts/Overpass-SemiBold.ttf
-          weight: 500
-        - asset: fonts/Overpass-Bold.ttf
-          weight: 700
-        - asset: fonts/Overpass-ExtraBold.ttf
-          weight: 800
-    - family: Manrope
-      fonts:
-        - asset: fonts/Manrope-Regular.ttf
-          weight: 400
-        - asset: fonts/Manrope-SemiBold.ttf
-          weight: 500
-        - asset: fonts/Manrope-Bold.ttf
-          weight: 700
-        - asset: fonts/Manrope-ExtraBold.ttf
-          weight: 800
-    - family: Rubik
-      fonts:
-        - asset: fonts/Rubik-Light.ttf
-          weight: 400
-        - asset: fonts/Rubik-Regular.ttf
-          weight: 500
-        - asset: fonts/Rubik-Medium.ttf
-          weight: 700
-        - asset: fonts/Rubik-Bold.ttf
-          weight: 800
+    
     - family: Niramit
       fonts:
         - asset: fonts/Niramit-Regular.ttf
@@ -125,16 +99,7 @@ flutter:
           weight: 700
         - asset: fonts/Niramit-Bold.ttf
           weight: 800
-    - family: Mitr
-      fonts:
-        - asset: fonts/Mitr-Light.ttf
-          weight: 400
-        - asset: fonts/Mitr-Regular.ttf
-          weight: 500
-        - asset: fonts/Mitr-Medium.ttf
-          weight: 700
-        - asset: fonts/Mitr-SemiBold.ttf
-          weight: 800
+   
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

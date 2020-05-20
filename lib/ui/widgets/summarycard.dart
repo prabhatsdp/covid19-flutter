@@ -77,6 +77,7 @@ class SummaryCard extends StatelessWidget {
                           lastUpdatedTime: lastUpdatedTime,
                           cardColor: cardColor,
                         ),
+                        settings:  RouteSettings(name: "home/india/${name}_card/details_page")
                       ),
                     );
                   },

@@ -239,6 +239,7 @@ class _PatientDataTableState extends State<PatientDataTable> {
                       title: stateData.state,
                       stateData: stateData,
                     ),
+                    settings: RouteSettings(name: "home/india/${stateData.state}/details_page"),
                   ),
                 );
               }

@@ -1,12 +1,20 @@
+import 'package:covid_19/services/analytics.dart';
 import 'package:covid_19/ui/pages/homepage.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  FirebaseAnalytics analytics = AnalyticsService().getAnalytics();
+  FirebaseAnalyticsObserver analyticsObserver = AnalyticsService().getAnalyticsObserver();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorObservers: <NavigatorObserver>[
+        analyticsObserver,
+      ],
       title: 'Covid 19 India',
       theme: ThemeData(
         fontFamily: "Niramit",

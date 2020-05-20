@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1016890486213",
+    "firebase_url": "https://covid-19-india-flutter.firebaseio.com",
+    "project_id": "covid-19-india-flutter",
+    "storage_bucket": "covid-19-india-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016890486213:android:a27482bfa9390645bd6fac",
+        "android_client_info": {
+          "package_name": "in.crazybytes.covid_19"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1016890486213-mcj5hudpm2opio684jtq706uc0er1ejp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0K8sPdog-6LDFmQIT5JGlEUD_41ZHSnc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1016890486213-mcj5hudpm2opio684jtq706uc0er1ejp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
