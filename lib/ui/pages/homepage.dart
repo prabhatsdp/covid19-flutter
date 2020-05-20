@@ -1,5 +1,7 @@
 import 'package:covid_19/bloc/statewise_bloc.dart';
-import 'package:covid_19/data/patientrepository.dart';
+import 'package:covid_19/bloc/update_info_bloc.dart';
+import 'package:covid_19/data/repos/patientrepository.dart';
+import 'package:covid_19/data/repos/update_repository.dart';
 import 'package:covid_19/services/analytics.dart';
 import 'package:covid_19/ui/widgets/animated_bottom_bar.dart';
 import 'package:covid_19/ui/widgets/india_details.dart';
@@ -22,10 +24,21 @@ class HomePage extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<StatewiseBloc>(
-      create: (BuildContext context) => StatewiseBloc(
-        patientRepository: CovidPatientRepository(),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<StatewiseBloc>(
+          create: (BuildContext context) => StatewiseBloc(
+            patientRepository: CovidPatientRepository(),
+          ),
+        ),
+        BlocProvider<UpdateInfoBloc>(
+          create: (BuildContext context) {
+            return UpdateInfoBloc(
+              updateRepository: FirebaseUpdateRepository(),
+            )..add(GetUpdateInfo());
+          },
+        ),
+      ],
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints viewportConstraints) {
           return AnnotatedRegion<SystemUiOverlayStyle>(

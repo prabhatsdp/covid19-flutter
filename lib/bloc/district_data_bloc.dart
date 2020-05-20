@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:covid_19/data/models/my_state_data.dart';
 import 'package:covid_19/data/models/my_state_single_value.dart';
-import 'package:covid_19/data/patientrepository.dart';
+import 'package:covid_19/data/repos/patientrepository.dart';
 import 'package:meta/meta.dart';
 
 part 'district_data_event.dart';

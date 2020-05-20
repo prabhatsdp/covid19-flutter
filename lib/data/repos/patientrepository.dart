@@ -1,12 +1,11 @@
 import 'dart:convert';
 
+import 'package:covid_19/data/models/daily_data.dart';
 import 'package:covid_19/data/models/my_state_data.dart';
 import 'package:covid_19/data/models/my_state_single_value.dart';
 import 'package:covid_19/data/models/single_day_data.dart';
 import 'package:http/http.dart' as http;
 
-import 'models/daily_data.dart';
-import 'models/my_state_daily_data.dart';
 
 abstract class PatientRepository {
   Future<Map<String, List>> fetchPatientData();

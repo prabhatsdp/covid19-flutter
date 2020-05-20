@@ -1,17 +1,22 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:covid_19/animations/widget_enter_anim.dart';
+import 'package:covid_19/bloc/update_info_bloc.dart';
 import 'package:covid_19/data/models/daily_data.dart';
 import 'package:covid_19/data/models/my_state_data.dart';
 import 'package:covid_19/data/models/summary.dart';
+import 'package:covid_19/data/models/update_info.dart';
 import 'package:covid_19/misc/helper.dart';
 import 'package:covid_19/ui/pages/delta_detail_page.dart';
 import 'package:covid_19/ui/widgets/patient_data_table.dart';
 import 'package:covid_19/ui/widgets/summarycard.dart';
+import 'package:covid_19/ui/widgets/update_prompt.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:covid_19/ui/pages/corona_info_page.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class IndiaDetails extends StatelessWidget {
   final Map<String, List> patientDataMap;
@@ -51,6 +56,11 @@ class IndiaDetails extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(
+            height: 10,
+          ),
+          //UpdateContainerStart
+          UpdatePrompt(),
           SizedBox(
             height: 10,
           ),

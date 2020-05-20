@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:covid_19/data/models/my_state_data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:covid_19/data/patientrepository.dart';
+import 'package:covid_19/data/repos/patientrepository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 

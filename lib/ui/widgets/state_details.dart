@@ -2,7 +2,7 @@ import 'package:covid_19/animations/widget_enter_anim.dart';
 import 'package:covid_19/bloc/district_data_bloc.dart';
 import 'package:covid_19/bloc/state_data_bloc.dart';
 import 'package:covid_19/data/models/my_state_data.dart';
-import 'package:covid_19/data/patientrepository.dart';
+import 'package:covid_19/data/repos/patientrepository.dart';
 import 'package:covid_19/misc/helper.dart';
 import 'package:covid_19/ui/widgets/daily_state_combined_char.dart';
 import 'package:covid_19/ui/widgets/patient_data_table.dart';
