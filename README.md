@@ -6,10 +6,10 @@
 ## Demo Screenshots
 
 ### HomeScreen
-![HomeScreen1](images/scrshot_1.png)
+![HomeScreen1](images/scrshot_2.png)
 
 ### Other Screens
-![HomeScreen1](images/scrshot_2.png)
+![HomeScreen1](images/scrshot_1.png)
 
 
 # Download the Covid-19 Android Apk from [here](https://drive.google.com/open?id=1B1NF3VWXtflrdbZJvyYIGm_7o9SO7q-Z)
