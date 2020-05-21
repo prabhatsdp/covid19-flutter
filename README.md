@@ -15,3 +15,6 @@
 
 # Download the Covid-19 Android Apk from [here](https://firebasestorage.googleapis.com/v0/b/covid-19-india-flutter.appspot.com/o/apks%2Fcovid19_crazybytes_1_0.apk?alt=media&token=e5a44074-a72d-4f5a-97ec-df49902508fe)
 
+### Contributions are Welcome
+The code of the app is fully open source and you can also contribute to make this app better and more useful. But before contributing, please discuss with me by opening an issue or through comments.
+
