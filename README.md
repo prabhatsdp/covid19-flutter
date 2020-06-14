@@ -24,6 +24,6 @@ The code of the app is fully open source and you can also contribute to make thi
 ![HomeScreen1](images/scrshot_1.png)
 
 
-# Download the Covid-19 Android Apk from [here](https://firebasestorage.googleapis.com/v0/b/covid-19-india-flutter.appspot.com/o/apks%2Fcovid19_crazybytes_1_0.apk?alt=media&token=e5a44074-a72d-4f5a-97ec-df49902508fe)
+# Download the Covid-19 Android Apk from [here](https://firebasestorage.googleapis.com/v0/b/covid-19-india-flutter.appspot.com/o/apks%2Fcovid19_crazybytes_1_0_1.apk?alt=media&token=9b68c7b2-dc24-4a08-bc5a-7bd4b34d8a3e)
 
 
