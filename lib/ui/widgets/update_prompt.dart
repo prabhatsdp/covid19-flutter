@@ -39,6 +39,10 @@ class _UpdatePromptState extends State<UpdatePrompt> {
             return state.updateInfo.updateAvailable ? showUpdatePromptContainer(state.updateInfo) : showEmptyContainer();
           }
 
+          if(state is UpdateInfoNoUpdate) {
+            return showEmptyContainer();
+          }
+
           if (state is UpdateInfoError) {
             Fluttertoast.showToast(msg: state.error);
             return showEmptyContainer();

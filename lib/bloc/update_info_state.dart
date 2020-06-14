@@ -18,6 +18,10 @@ class UpdateInfoLoaded extends UpdateInfoState {
   const UpdateInfoLoaded({@required this.updateInfo});
 }
 
+class UpdateInfoNoUpdate extends UpdateInfoState {
+  const UpdateInfoNoUpdate();
+}
+
 class UpdateInfoError extends UpdateInfoState {
   final String error;
   const UpdateInfoError({@required this.error});
