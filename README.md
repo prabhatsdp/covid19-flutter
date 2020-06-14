@@ -7,6 +7,13 @@
  ### Contributions are Welcome
 The code of the app is fully open source and you can also contribute to make this app better and more useful. But before contributing, please discuss with me by opening a new issue or through comments on existing issues.
 
+## Changelog
+### 1.0.1
+    - Added support for negative numbers in the table for all four values (Confirmed, Active, Recovered & Deaths).
+    - Fixed Bar Chart where the bars were going out of bounds of the parent widget in case of negative value.
+### 1.0.0
+    - Initial Version
+
 
 ## Screenshots
 

@@ -294,7 +294,7 @@ class _PatientDataTableState extends State<PatientDataTable> {
                       children: <Widget>[
                         stateData.todayConfirmed != 0
                             ? Text(
-                                stateData.state != "Total" ? "+" + Helper.formatNumber(stateData.todayConfirmed) : Helper.formatNumberAsThousands(stateData.todayConfirmed),
+                                stateData.state != "Total" ? (stateData.todayConfirmed.isNegative ? "" : "+") + Helper.formatNumber(stateData.todayConfirmed) : Helper.formatNumberAsThousands(stateData.todayConfirmed),
                                 style: TextStyle(
                                   fontWeight: FontWeight.w900,
                                   fontSize: 12,
@@ -303,7 +303,7 @@ class _PatientDataTableState extends State<PatientDataTable> {
                               )
                             : Container(),
                         Text(
-                          stateData.confirmed == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.confirmed) : Helper.formatNumberAsThousands(stateData.confirmed)),
+                          stateData.confirmed == 0 ? "-" : (stateData.state != "Total" && stateData.confirmed < 100000 ? Helper.formatNumber(stateData.confirmed) : Helper.formatNumberAsThousands(stateData.confirmed)),
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.blueAccent,
@@ -340,7 +340,7 @@ class _PatientDataTableState extends State<PatientDataTable> {
                               )
                             : Container(),
                         Text(
-                          stateData.active == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.active) : Helper.formatNumberAsThousands(stateData.active)),
+                          stateData.active == 0 ? "-" : (stateData.state != "Total" && stateData.active < 100000 ? Helper.formatNumber(stateData.active) : Helper.formatNumberAsThousands(stateData.active)),
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.amberAccent[700],
@@ -368,7 +368,7 @@ class _PatientDataTableState extends State<PatientDataTable> {
                       children: <Widget>[
                         stateData.todayRecovered != 0
                             ? Text(
-                                stateData.state != "Total" ? "+" + Helper.formatNumber(stateData.todayRecovered) : Helper.formatNumberAsThousands(stateData.todayRecovered),
+                                stateData.state != "Total" ? (stateData.todayRecovered.isNegative ? "" : "+") + Helper.formatNumber(stateData.todayRecovered) : Helper.formatNumberAsThousands(stateData.todayRecovered),
                                 style: TextStyle(
                                   fontWeight: FontWeight.w900,
                                   fontSize: 12,
@@ -377,7 +377,7 @@ class _PatientDataTableState extends State<PatientDataTable> {
                               )
                             : Container(),
                         Text(
-                          stateData.recovered == 0 ? "-" : (stateData.state != "Total" ? Helper.formatNumber(stateData.recovered) : Helper.formatNumberAsThousands(stateData.recovered)),
+                          stateData.recovered == 0 ? "-" : (stateData.state != "Total" && stateData.recovered < 100000 ? Helper.formatNumber(stateData.recovered) : Helper.formatNumberAsThousands(stateData.recovered)),
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.greenAccent[700],
@@ -402,7 +402,7 @@ class _PatientDataTableState extends State<PatientDataTable> {
                       children: <Widget>[
                         stateData.todayDeaths != 0
                             ? Text(
-                                stateData.state != "Total" ? "+" + Helper.formatNumber(stateData.todayDeaths) : Helper.formatNumberAsThousands(stateData.todayDeaths),
+                                stateData.state != "Total" ? (stateData.todayDeaths.isNegative ? "" : "+") + Helper.formatNumber(stateData.todayDeaths) : Helper.formatNumberAsThousands(stateData.todayDeaths),
                                 style: TextStyle(
                                   fontWeight: FontWeight.w900,
                                   fontSize: 12,
@@ -411,7 +411,7 @@ class _PatientDataTableState extends State<PatientDataTable> {
                               )
                             : Container(),
                         Text(
-                          stateData.deaths == 0 ? "_" : (stateData.state != "Total" ? Helper.formatNumber(stateData.deaths) : Helper.formatNumberAsThousands(stateData.deaths)),
+                          stateData.deaths == 0 ? "_" : (stateData.state != "Total" && stateData.deaths < 100000 ? Helper.formatNumber(stateData.deaths) : Helper.formatNumberAsThousands(stateData.deaths)),
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: stateData.state != "Total" ? Colors.black.withAlpha(170) : Colors.redAccent,

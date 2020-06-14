@@ -291,7 +291,7 @@ class _BarChartDailyState extends State<BarChartDaily> {
         BarChartGroupData(x: i, barRods: [
           BarChartRodData(
             width: getWidth(selectedValue),
-            y: item.value / valueDivider,
+            y: item.value.isNegative ? 0 : item.value / valueDivider,
             color: getColor(i, touchedSpotXValue),
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.zero,
