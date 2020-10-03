@@ -30,6 +30,10 @@
 .pub/
 /build/
 
+# Google Services Related
+/android/app/google-services.json
+/ios/Runner/GoogleService-Info.plist
+
 #KeyStoreProperties
 /android/key.properties
 
